@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+    <%- partial('partial/head') %>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+            <%- partial('partial/sidebar') %>
+        </div>
+        
+        <!-- 右侧归档内容区 -->
+        <div class="main-content">
+            <!-- 小工具横向布局 -->
+            <div class="widgets-container">
+                <%- partial('partial/recent-posts') %>
+                <%- partial('partial/categories') %>
+                <%- partial('partial/tags') %>
+                <%- partial('partial/archives') %>
+            </div>
+            
+            <div class="archive-container">
+                <div class="archive-timeline">
+                    <% var year = null; %>
+                    <% site.posts.sort('date', -1).each(function(post) { %>
+                        <% var postYear = date(post.date, 'YYYY'); %>
+                        <% if (year !== postYear) { %>
+                            <% year = postYear; %>
+                            <div class="timeline-year">
+                                <h2 class="timeline-year-title"><%= year %></h2>
+                            </div>
+                        <% } %>
+                        <div class="timeline-item">
+                            <span class="timeline-date"><%= date(post.date, 'MM-DD') %></span>
+                            <a href="<%= url_for(post.path) %>" class="timeline-title"><%= post.title %></a>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 搜索模态框 -->
+    <%- partial('partial/search-modal') %>
+    
+    <!-- 返回顶部按钮 -->
+    <%- partial('partial/back-to-top') %>
+    
+    <%- partial('partial/footer') %>
+    <%- partial('partial/scripts') %>
+</body>
+</html>

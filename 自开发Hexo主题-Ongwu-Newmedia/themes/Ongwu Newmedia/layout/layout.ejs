@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><% if (page.title) { %><%= page.title %> - <% } %><%= config.title %></title>
+  <meta name="description" content="<%= page.description || config.description %>" />
+  <meta name="keywords" content="<%= page.keywords || config.keywords %>" />
+  
+  <!-- CSS -->
+  <%- css('css/style.css') %>
+  <%- css('css/responsive.css') %>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <%- js('js/main.js') %>
+  <%- js('js/fix-navbar-height.js') %>
+  
+  <!-- 百度统计 -->
+  <% if (theme.theme_settings.footer.show_analytics) { %>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?your_tracking_code";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+  <% } %>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <%- partial('_partial/navbar') %>
+  
+  <!-- 主内容区 -->
+  <main class="container">
+    <div class="main-content">
+      <!-- 侧边栏 -->
+      <% if (theme.theme_settings.sidebar.show && (theme.theme_settings.sidebar.show_on_home || (is_post() && theme.theme_settings.sidebar.show_on_post) || (is_page() && theme.theme_settings.sidebar.show_on_page))) { %>
+      <aside class="sidebar <%= theme.theme_settings.sidebar.position %>">
+        <!-- 热门文章 -->
+        <% if (theme.theme_settings.sidebar.widgets.popular_posts) { %>
+        <div class="widget popular-posts">
+          <h3 class="widget-title"><span class="title-text">热门文章</span><span class="bg-primary"></span></h3>
+          <div class="widget-content">
+            <ul>
+              <% site.posts.limit(10).each(function(post) { %>
+              <li><a href="<%= url_for(post.path) %>" title="<%= post.title %>" class="popular-post-title"><span class="gray-dot"></span><%= post.title %></a></li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+        <% } %>
+        
+
+        
+        <!-- 标签云 -->
+        <% if (theme.theme_settings.sidebar.widgets.tags) { %>
+        <div class="widget tags">
+          <h3 class="widget-title"><span class="title-text">标签云</span><span class="bg-primary"></span></h3>
+          <div class="widget-content">
+            <div class="tag-cloud">
+              <% site.tags.each(function(tag) { %>
+              <a href="<%= url_for(tag.path) %>" title="<%= tag.name %>" class="tag-link" style="font-size: <%- 10 + tag.posts.length * 2 %>px"><%= tag.name %> (<%= tag.posts.length %>)</a>
+              <% }) %>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        
+
+        
+        <!-- 社交媒体 -->
+        <% if (theme.theme_settings.sidebar.widgets.social) { %>
+        <div class="widget social">
+          <h3 class="widget-title"><span class="title-text">社交媒体</span><span class="bg-primary"></span></h3>
+          <div class="widget-content">
+            <div class="social-links">
+              <% if (theme.theme_settings.social) { %>
+              <% if (theme.theme_settings.social.github) { %>
+              <a href="<%= theme.theme_settings.social.github %>" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.twitter) { %>
+              <a href="<%= theme.theme_settings.social.twitter %>" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.facebook) { %>
+              <a href="<%= theme.theme_settings.social.facebook %>" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.weibo) { %>
+              <a href="<%= theme.theme_settings.social.weibo %>" target="_blank" title="微博"><i class="fab fa-weibo"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.wechat) { %>
+              <a href="<%= url_for(theme.theme_settings.social.wechat) %>" target="_blank" title="微信"><i class="fab fa-weixin"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.qq) { %>
+              <a href="<%= theme.theme_settings.social.qq %>" target="_blank" title="QQ"><i class="fab fa-qq"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.email) { %>
+              <a href="<%= theme.theme_settings.social.email %>" target="_blank" title="邮箱"><i class="fas fa-envelope"></i></a>
+              <% } %>
+              <% if (theme.theme_settings.social.telegram) { %>
+              <a href="<%= theme.theme_settings.social.telegram %>" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+              <% } %>
+              <% } %>
+              <!-- RSS订阅 -->
+              <% if (theme.theme_settings.subscribe.rss) { %>
+              <a href="<%= url_for('/rss.xml') %>" target="_blank" title="RSS订阅"><i class="fas fa-rss"></i></a>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        <% } %>
+        
+        <!-- 友情链接 -->
+        <div class="widget links">
+          <h3 class="widget-title"><span class="title-text">友情链接</span><span class="bg-primary"></span></h3>
+          <div class="widget-content">
+            <ul class="links-list">
+              <li><a href="https://www.microsoft.com/zh-cn/windows" target="_blank" title="Windows官方"><span class="gray-dot"></span>Windows官方</a></li>
+              <li><a href="https://hexo.io/zh-cn/" target="_blank" title="Hexo官网"><span class="gray-dot"></span>Hexo官网</a></li>
+              <li><a href="https://github.com" target="_blank" title="GitHub"><span class="gray-dot"></span>GitHub</a></li>
+              <li><a href="https://www.cnblogs.com/" target="_blank" title="博客园"><span class="gray-dot"></span>博客园</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+      <% } %>
+      
+      <!-- 内容区域 -->
+      <div class="content <% if (theme.theme_settings.sidebar.show && (theme.theme_settings.sidebar.show_on_home || (is_post() && theme.theme_settings.sidebar.show_on_post) || (is_page() && theme.theme_settings.sidebar.show_on_page))) { %>has-sidebar<% if (theme.theme_settings.sidebar.position === 'left') { %> sidebar-left<% } %><% } %>">
+        <!-- 页面内容 -->
+        <%- body %>
+      </div>
+    </div>
+  </main>
+  
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <!-- 社交媒体链接 -->
+      <% if (theme.theme_settings.footer.show_social) { %>
+      <div class="footer-social">
+        <div class="social-links">
+          <% if (theme.social) { %>
+          <% if (theme.social.github) { %>
+          <a href="<%= theme.social.github %>" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <% } %>
+          <% if (theme.social.twitter) { %>
+          <a href="<%= theme.social.twitter %>" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <% } %>
+          <% if (theme.social.facebook) { %>
+          <a href="<%= theme.social.facebook %>" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+          <% } %>
+          <% if (theme.social.weibo) { %>
+          <a href="<%= theme.social.weibo %>" target="_blank" title="微博"><i class="fab fa-weibo"></i></a>
+          <% } %>
+          <% if (theme.social.wechat) { %>
+          <a href="<%= url_for(theme.social.wechat) %>" target="_blank" title="微信"><i class="fab fa-weixin"></i></a>
+          <% } %>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+      
+      <!-- 版权信息 -->
+      <% if (theme.theme_settings.footer.show_copyright) { %>
+      <div class="footer-copyright">
+        <p>© 2025 Windows 极客. | Theme by <a href="https://github.com" target="_blank">ongwu</a> | <span id="website-runtime"></span></p>
+      </div>
+      <% } %>
+    </div>
+  </footer>
+  
+  <!-- 返回顶部按钮 -->
+  <% if (theme.theme_settings.back_to_top.enable) { %>
+  <button id="back-to-top" class="back-to-top"><i class="<%= theme.theme_settings.back_to_top.icon %>"></i></button>
+  <% } %>
+  
+  <!-- 移动端菜单脚本 -->
+  <script>
+    $(document).ready(function() {
+      // 移动端菜单切换
+      $('.mobile-menu-btn').on('click', function() {
+        $('.mobile-menu').toggleClass('active');
+      });
+      
+      // 返回顶部按钮
+      $('#back-to-top').on('click', function() {
+        $('html, body').animate({scrollTop: 0}, 300);
+      });
+      
+      // 监听滚动显示/隐藏返回顶部按钮
+      $(window).on('scroll', function() {
+        if ($(window).scrollTop() > <%- JSON.stringify(theme.theme_settings.back_to_top.offset || 500) %>) {
+          $('#back-to-top').addClass('show');
+        } else {
+          $('#back-to-top').removeClass('show');
+        }
+      });
+      
+      // 计算网站运行时长
+      function updateRuntime() {
+        const startTime = new Date('2025-10-01T00:00:00');
+        const now = new Date();
+        const diff = now - startTime;
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        $('#website-runtime').text(`网站已运行 ${days}天${hours}小时${minutes}分钟${seconds}秒`);
+      }
+      
+      // 初始更新并设置定时器
+      updateRuntime();
+      setInterval(updateRuntime, 1000);
+      
+    });
+  </script>
+  
+  <!-- 搜索功能 -->
+  <%- partial('_partial/search') %>
+</body>
+</html>

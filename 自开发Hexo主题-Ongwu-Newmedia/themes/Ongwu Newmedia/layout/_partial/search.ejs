@@ -1,0 +1,246 @@
+<script type="text/javascript">
+// 等待页面完全加载后，将搜索功能的初始化绑定到搜索按钮点击事件
+$(function () {
+    
+    // 为搜索按钮添加点击事件，在用户点击时初始化搜索功能
+    var searchButton = document.getElementById('search-button');
+    var searchInitialized = false;
+    
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            // 确保只初始化一次
+            if (!searchInitialized) {
+                setTimeout(function() {
+                    searchFunc("<%= config.root %>" + "search.json", 'searchInput', 'searchResult');
+                    searchInitialized = true;
+                }, 300); // 延迟初始化，确保搜索覆盖层已经显示
+            }
+        });
+    }
+});
+
+var searchFunc = function (path, search_id, content_id) {
+    // 'use strict';
+    // 如果没有传入参数，使用默认值
+    path = path || "<%= config.root %>" + "search.json";
+    search_id = search_id || 'searchInput';
+    content_id = content_id || 'searchResult';
+    
+    // 获取搜索框和结果容器元素
+    var $input = document.getElementById(search_id);
+    var $resultContent = document.getElementById(content_id);
+    
+    // 检查元素是否存在
+    if (!$input || !$resultContent) {
+        console.error("搜索框或结果容器不存在");
+        return;
+    }
+    
+    // 如果搜索框有值，直接执行搜索
+    if ($input.value.trim().length > 0) {
+        performSearch(path, $input, $resultContent);
+        return;
+    }
+    
+    // 否则，设置AJAX请求和输入事件监听
+    $.ajax({
+        url: path,
+        dataType: "json",
+        success: function (datas) {
+            // 保存搜索数据到全局变量，以便后续调用
+            window.searchData = datas;
+            
+            // 添加输入事件监听
+            $input.addEventListener('input', function () {
+                var str = '<ul class="search-result-list">';
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                // 移除搜索结果容器的显示类
+                $resultContent.classList.remove('show');
+                if (this.value.trim().length <= 0) {
+                    return;
+                }
+                // 执行本地搜索
+                datas.forEach(function (data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // 只匹配标题和内容不为空的文章
+                    if (data_title != '' && data_content != '') {
+                        keywords.forEach(function (keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if (index_title < 0 && index_content < 0) {
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // 显示搜索结果
+                    if (isMatch) {
+                        str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g, "");
+                        if (first_occur >= 0) {
+                            // 截取100个字符
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if (start < 0) {
+                                start = 0;
+                            }
+                            if (start == 0) {
+                                end = 100;
+                            }
+                            if (end > content.length) {
+                                end = content.length;
+                            }
+                            var match_content = content.substr(start, end);
+                            // 高亮所有关键词
+                            keywords.forEach(function (keyword) {
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                            });
+
+                            str += "<p class=\"search-result\">" + match_content + "...</p>"
+                        }
+                        str += "</li>";
+                    }
+                });
+                str += "</ul>";
+                $resultContent.innerHTML = str;
+                // 显示搜索结果容器
+                $resultContent.classList.add('show');
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error("搜索数据加载失败:", error);
+        }
+    });
+    
+    // 执行搜索的函数
+    function performSearch(path, $input, $resultContent) {
+        // 如果已经加载过搜索数据，直接使用
+        if (window.searchData) {
+            doSearch(window.searchData, $input, $resultContent);
+        } else {
+            // 否则，重新加载搜索数据
+            $.ajax({
+                url: path,
+                dataType: "json",
+                success: function (datas) {
+                    window.searchData = datas;
+                    doSearch(datas, $input, $resultContent);
+                },
+                error: function (xhr, status, error) {
+                    console.error("搜索数据加载失败:", error);
+                    $resultContent.innerHTML = '<div style="padding: 20px;">搜索数据加载失败，请刷新页面重试</div>';
+                }
+            });
+        }
+    }
+    
+    // 实际执行搜索的函数
+    function doSearch(datas, $input, $resultContent) {
+        var str = '<ul class="search-result-list">';
+        var keywords = $input.value.trim().toLowerCase().split(/[\s\-]+/);
+        $resultContent.innerHTML = "";
+        
+        if ($input.value.trim().length <= 0) {
+            return;
+        }
+        
+        // 执行本地搜索
+        datas.forEach(function (data) {
+            var isMatch = true;
+            var content_index = [];
+            var data_title = data.title.trim().toLowerCase();
+            var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+            var data_url = data.url;
+            var index_title = -1;
+            var index_content = -1;
+            var first_occur = -1;
+            
+            // 只匹配标题和内容不为空的文章
+            if (data_title != '' && data_content != '') {
+                keywords.forEach(function (keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    
+                    if (index_title < 0 && index_content < 0) {
+                        isMatch = false;
+                    } else {
+                        if (index_content < 0) {
+                            index_content = 0;
+                        }
+                        if (i == 0) {
+                            first_occur = index_content;
+                        }
+                    }
+                });
+            }
+            
+            // 显示搜索结果
+            if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + data.title + "</a>";
+                var content = data.content.trim().replace(/<[^>]+>/g, "");
+                
+                if (first_occur >= 0) {
+                    // 截取100个字符
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    
+                    if (start < 0) {
+                        start = 0;
+                    }
+                    if (start == 0) {
+                        end = 100;
+                    }
+                    if (end > content.length) {
+                        end = content.length;
+                    }
+                    
+                    var match_content = content.substring(start, end);
+                    
+                    // 高亮搜索关键词
+                    keywords.forEach(function (keyword) {
+                        var regS = new RegExp(keyword, 'gi');
+                        match_content = match_content.replace(regS, "<span class='search-keyword'>" + keyword + "</span>");
+                    });
+                    
+                    str += "<p class='search-result'>";
+                    if (start > 0) {
+                        str += "...";
+                    }
+                    str += match_content;
+                    if (end < content.length) {
+                        str += "...";
+                    }
+                    str += "</p>";
+                }
+                str += "</li>";
+            }
+        });
+        
+        str += '</ul>';
+                    
+                    // 如果没有搜索结果
+                    if (str.indexOf('<li>') === -1) {
+                        $resultContent.innerHTML = '<div style="padding: 20px;">没有找到相关内容</div>';
+                    } else {
+                        $resultContent.innerHTML = str;
+                    }
+                    // 显示搜索结果容器
+                    $resultContent.classList.add('show');
+    }
+};
+</script>

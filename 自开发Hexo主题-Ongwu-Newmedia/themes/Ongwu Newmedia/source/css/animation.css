@@ -1,0 +1,552 @@
+/* 动画效果 */
+
+/* 页面进入动画 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 应用动画到元素 */
+/* 页面容器 */
+.main-content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Banner区域 */
+.banner {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.banner-title {
+  animation: fadeInDown 0.8s ease-out 0.2s both;
+}
+
+.banner-subtitle {
+  animation: fadeInDown 0.8s ease-out 0.4s both;
+}
+
+.banner-description {
+  animation: fadeInDown 0.8s ease-out 0.6s both;
+}
+
+.banner-btn {
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+/* Banner幻灯片区域 */
+.banner-slider {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.main-slide .slide-item {
+  animation: fadeInLeft 0.8s ease-out 0.2s both;
+}
+
+.side-slides .slide-item:nth-child(1) {
+  animation: fadeInRight 0.8s ease-out 0.4s both;
+}
+
+.side-slides .slide-item:nth-child(2) {
+  animation: fadeInRight 0.8s ease-out 0.6s both;
+}
+
+.slide-description {
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+/* 文章列表 */
+.post-item {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* 为不同的文章项添加延迟动画 */
+.post-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.post-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.post-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.post-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.post-item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+/* 侧边栏 */
+.sidebar {
+  animation: fadeInRight 0.8s ease-out;
+}
+
+/* 侧边栏小部件 */
+.widget {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.widget:nth-child(1) {
+  animation-delay: 0.2s;
+}
+
+.widget:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.widget:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.widget:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.widget:nth-child(5) {
+  animation-delay: 1s;
+}
+
+/* 文章页 */
+.post-header {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.post-content {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.post-tags {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.post-like {
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.post-share {
+  animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+.post-nav {
+  animation: fadeInUp 0.8s ease-out 1s both;
+}
+
+.related-posts {
+  animation: fadeInUp 0.8s ease-out 1.2s both;
+}
+
+.post-comments {
+  animation: fadeInUp 0.8s ease-out 1.4s both;
+}
+
+/* 页面 */
+.page-header {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.page-content {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* 归档页 */
+.archive-header {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.archive-group {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* 分类和标签页 */
+.category-archive .archive-header,
+.tag-archive .archive-header {
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.category-archive .post-list,
+.tag-archive .post-list {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+/* 悬停动画 */
+/* 链接悬停 */
+a {
+  transition: all 0.3s ease;
+}
+
+/* 按钮悬停 */
+.banner-btn,
+.post-read-more,
+.like-btn,
+.pagination-link,
+.back-to-top {
+  transition: all 0.3s ease;
+}
+
+/* 文章项悬停 */
+.post-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 缩略图悬停 */
+.post-thumb-img,
+.related-thumb-img {
+  transition: transform 0.5s ease;
+}
+
+.post-item:hover .post-thumb-img,
+.related-item:hover .related-thumb-img {
+  transform: scale(1.05);
+}
+
+/* 标签悬停 */
+.tag {
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  transform: translateY(-2px);
+}
+
+/* 社交图标悬停 */
+.social-links a {
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+}
+
+/* 侧边栏小部件标题悬停 */
+.widget-title {
+  transition: color 0.3s ease;
+}
+
+.widget:hover .widget-title {
+  color: var(--primary-color);
+}
+
+/* 滚动动画 */
+/* 返回顶部按钮显示/隐藏 */
+@keyframes fadeInOut {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.back-to-top {
+  animation: fadeInOut 0.3s ease;
+}
+
+/* 加载动画 */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 页面切换动画 */
+/* 注意：页面切换动画需要JavaScript配合实现 */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.6s ease;
+}
+
+.page-transition.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.page-transition.fade-out {
+  opacity: 0;
+}
+
+/* 骨架屏动画 */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* 移动端菜单动画 */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu.active {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* 移动端菜单项动画 */
+.mobile-menu li {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+}
+
+.mobile-menu.active li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mobile-menu.active li:nth-child(1) {
+  transition-delay: 0.1s;
+}
+
+.mobile-menu.active li:nth-child(2) {
+  transition-delay: 0.2s;
+}
+
+.mobile-menu.active li:nth-child(3) {
+  transition-delay: 0.3s;
+}
+
+.mobile-menu.active li:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+.mobile-menu.active li:nth-child(5) {
+  transition-delay: 0.5s;
+}
+
+/* 搜索框展开/收起动画 */
+@keyframes expand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes collapse {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+/* 点赞按钮动画 */
+@keyframes likeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.like-btn.active {
+  animation: likeAnimation 0.3s ease;
+}
+
+/* 图片懒加载动画 */
+@keyframes fadeInImage {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+img.lazy-loaded {
+  animation: fadeInImage 0.5s ease;
+}
+
+/* 翻译功能切换动画 */
+@keyframes slideIn {
+  from {
+    transform: translateX(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.translate-wrapper {
+  animation: slideIn 0.3s ease;
+}
+
+/* 数字增长动画 */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.count-animation {
+  animation: countUp 0.5s ease;
+}
+
+/* 响应式动画调整 */
+/* 在移动端上减少动画效果或调整动画时间 */
+@media (max-width: 767px) {
+  /* 减少动画时间 */
+  .main-content,
+  .banner,
+  .post-item,
+  .sidebar,
+  .widget,
+  .post-header,
+  .post-content,
+  .page-header,
+  .page-content,
+  .archive-header,
+  .archive-group {
+    animation-duration: 0.4s;
+  }
+  
+  /* 简化动画效果 */
+  .post-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .social-links a:hover {
+    transform: translateY(-2px);
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "hexo-theme-ongwu-simple",
+  "version": "1.0.0",
+  "description": "一个简洁大气的Hexo主题，专为追求简洁与美感的博主设计",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ongwu/ongwu-simple.git"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "blog",
+    "responsive",
+    "mobile",
+    "简洁",
+    "个人博客"
+  ],
+  "author": {
+    "name": "Ongwu",
+    "email": "ongwu007@gmail.com",
+    "url": "https://ongwu.cn"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ongwu/ongwu-simple/issues"
+  },
+  "homepage": "https://github.com/ongwu/ongwu-simple#readme",
+  "engines": {
+    "hexo": ">=5.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "hexo": ">=5.0.0"
+  }
+}

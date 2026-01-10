@@ -1,0 +1,414 @@
+# Ongwu Simple Theme Configuration
+# 简洁大气的个人博客主题配置文件
+
+# ===================
+# 主题基本信息
+# ===================
+name: ONGWU BLOG
+version: 1.0.0
+description: 简洁大气的个人博客
+
+# ===================
+# 网站基本信息
+# ===================
+# 网站标题
+site_title: "ONGWU BLOG"
+# 网站副标题
+site_subtitle: "简洁大气的个人博客主题"
+# 网站描述
+site_description: "基于 Hexo 的简洁个人博客主题"
+# 网站关键词
+site_keywords: "博客,个人网站,Hexo,简洁"
+# 网站语言
+language: zh-CN
+# 网站时区
+timezone: ''
+# 网站URL
+url: http://yoursite.com
+# 网站根路径
+root: /
+# 文章永久链接格式
+permalink: :year/:month/:day/:title/
+# 永久链接默认值
+permalink_defaults:
+# 美化URL设置
+pretty_urls:
+  trailing_index: true
+  trailing_html: true
+
+# ===================
+# 个人资料
+# ===================
+# 个人头像
+avatar: /images/avatar.jpg
+# 个人姓名
+author_name: "Ongwu"
+# 个人职业
+author_job: "全栈开发者"
+# 个人位置
+author_location: "中国"
+# 个人简介
+author_bio: "热爱技术，喜欢分享，追求简洁与美感的平衡。"
+
+# ===================
+# 个人名言/座右铭
+# ===================
+quote: "简洁是智慧的灵魂。"
+
+# ===================
+# 欢迎语设置
+# ===================
+welcome:
+  # 欢迎语标题
+  title: "Hi，旅行者："
+  # 欢迎语内容
+  content: "欢迎来到我的小站呀，很高兴遇见你！这是一个刚开始的小站，分享我的技术和随笔。 如有问题，还请多多指教！"
+
+# ===================
+# 导航菜单
+# ===================
+menu:
+  - name: "首页"
+    url: "/"
+    icon: "home"
+  - name: "留言"
+    url: "/guestbook"
+    icon: "file-text"
+  - name: "友链"
+    url: "/links"
+    icon: "link"
+  - name: "关于"
+    url: "/about"
+    icon: "user"
+
+
+# ===================
+# 友链设置
+# ===================
+links:
+  - name: "示例友链"
+    url: "https://example.com"
+    description: "这是一个示例友链"
+    avatar: "https://example.com/avatar.jpg"
+  - name: "另一个友链"
+    url: "https://another.com"
+    description: "另一个示例友链"
+    avatar: "https://another.com/avatar.jpg"
+
+# ===================
+# 统计代码
+# ===================
+analytics:
+  # Google Analytics
+  google: ""
+  # 百度统计
+  baidu: ""
+  # 51.la统计
+  la51: ""
+  # 自定义统计代码
+  custom: ""
+
+# ===================
+# 不蒜子统计
+# ===================
+busuanzi:
+  # 是否启用不蒜子统计
+  enable: true
+  # 是否显示PV统计
+  show_pv: true
+  # 是否显示UV统计
+  show_uv: true
+  # 统计脚本地址
+  script_url: "https://busuanzi.9420.ltd/js"
+
+# ===================
+# 评论系统
+# ===================
+comments:
+  # 评论服务类型: waline, gitalk, disqus, valine
+  service: waline
+  # Waline配置
+  waline:
+    serverURL: https://comment.cn #用自己的Waline评论系统，个人感觉比较好用！
+    # 是否启用访客统计
+    visitor: true
+    # 是否启用评论
+    comment: true
+    # 是否启用页面访问量
+    pageview: true
+    # 每页评论数量
+    pageSize: 10
+    # 头像样式: retro, mp, identicon, monsterid, wavatar, robohash, blank, 或自定义URL模板
+    avatar: https://cdn.sep.cc/avatar/${hash}
+    # 语言设置
+    lang: zh-CN
+    # 占位符文本
+    placeholder: "欢迎留言讨论..."
+
+# ===================
+# 搜索配置
+# ===================
+search:
+  # 是否启用搜索
+  enable: true
+  # 搜索文件路径
+  path: search.xml
+  # 搜索字段
+  field: post
+  # 搜索占位符
+  placeholder: "搜索文章..."
+
+# ===================
+# 代码高亮
+# ===================
+highlight:
+  # 是否启用代码高亮
+  enable: true
+  # 是否显示行号
+  line_number: true
+  # 自动检测语言
+  auto_detect: true
+  # Tab替换
+  tab_replace: '  '
+  # 代码高亮主题
+  theme: default
+
+# ===================
+# 数学公式
+# ===================
+math:
+  # 是否启用数学公式
+  enable: false
+  # 数学公式引擎: mathjax, katex
+  engine: mathjax
+  # 是否自动渲染
+  auto_render: true
+
+# ===================
+# 图片设置
+# ===================
+image:
+  # 是否启用图片懒加载
+  lazyload: true
+  # 默认图片
+  default: /images/default.jpg
+  # 图片压缩质量
+  quality: 80
+
+# ===================
+# 返回顶部
+# ===================
+back_to_top:
+  # 是否启用返回顶部
+  enable: true
+  # 是否在侧边栏显示
+  sidebar: true
+  # 是否显示滚动百分比
+  scrollpercent: true
+  # 显示位置: left, right
+  position: right
+
+# ===================
+# 页面设置
+# ===================
+page:
+  # 每页文章数量
+  per_page: 10
+  # 是否显示文章摘要
+  show_excerpt: true
+  # 摘要长度
+  excerpt_length: 222
+  # 是否显示阅读时间
+  show_read_time: true
+  # 是否显示文章字数
+  show_word_count: true
+
+# ===================
+# Hexo核心配置
+# ===================
+# 目录设置
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+
+# 写作设置
+new_post_name: :title.md
+default_layout: post
+titlecase: false
+external_link:
+  enable: true
+  field: site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+
+# 首页设置
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+# 分类和标签
+default_category: uncategorized
+category_map:
+tag_map:
+
+# 元数据元素
+meta_generator: true
+
+# 日期时间格式
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+use_date_for_updated: false
+
+# 分页设置
+pagination_dir: page
+
+# 包含/排除文件
+include:
+exclude:
+ignore:
+
+# 扩展设置
+theme: ongwu_simple
+
+# ===================
+# 部署配置
+# ===================
+deploy:
+  type: ''
+  # 示例配置（根据实际需要修改）
+  # type: git
+  # repo: https://github.com/username/username.github.io.git
+  # branch: main
+  # message: "Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}"
+
+# ===================
+# 侧边栏设置
+# ===================
+sidebar:
+  # 是否显示侧边栏
+  enable: true
+  # 侧边栏位置: left, right
+  position: left
+  # 是否显示个人资料
+  show_profile: true
+  # 是否显示导航菜单
+  show_menu: true
+  # 是否显示搜索框
+  show_search: true
+  # 是否显示欢迎语
+  show_welcome: true
+  # 是否显示社交链接
+  show_social: true
+  # 是否显示友链
+  show_links: true
+
+# ===================
+# 文章设置
+# ===================
+post:
+  # 是否显示文章标题
+  show_title: true
+  # 是否显示文章元信息
+  show_meta: true
+  # 是否显示文章标签
+  show_tags: true
+  # 是否显示文章分类
+  show_categories: true
+  # 是否显示文章日期
+  show_date: true
+  # 是否显示文章作者
+  show_author: true
+  # 是否显示阅读时间
+  show_read_time: true
+  # 是否显示文章字数
+  show_word_count: true
+  # 是否显示文章目录
+  show_toc: true
+  # 是否显示相关文章
+  show_related: true
+
+# ===================
+# 主题颜色
+# ===================
+color:
+  # 主色调
+  primary: "#3498db"
+  # 辅助色
+  secondary: "#2c3e50"
+  # 成功色
+  success: "#27ae60"
+  # 警告色
+  warning: "#f39c12"
+  # 危险色
+  danger: "#e74c3c"
+  # 信息色
+  info: "#17a2b8"
+  # 浅色
+  light: "#f8f9fa"
+  # 深色
+  dark: "#343a40"
+
+# ===================
+# 字体设置
+# ===================
+font:
+  # 正文字体
+  body: "LXGW WenKai Screen"
+  # 标题字体
+  heading: "LXGW WenKai Screen"
+  # 代码字体
+  code: "JetBrainMono"
+  # 字体大小
+  size: 16px
+  # 行高
+  line_height: 1.6
+
+# ===================
+# 布局设置
+# ===================
+layout:
+  # 容器最大宽度
+  max_width: 1400px
+  # 侧边栏宽度
+  sidebar_width: 360px
+  # 主内容区宽度
+  main_width: 800px
+  # 两栏间距
+  gap: 60px
+  # 内边距
+  padding: 30px
+
+# ===================
+# 动画设置
+# ===================
+animation:
+  # 是否启用动画
+  enable: true
+  # 动画持续时间
+  duration: 0.3s
+  # 动画缓动函数
+  easing: ease-in-out
+
+# ===================
+# 其他设置
+# ===================
+# 是否显示版权信息
+show_copyright: true
+# 是否显示备案信息
+show_beian: false
+# 备案号
+beian: ""
+# 是否显示RSS链接
+show_rss: true
+# 是否显示sitemap
+show_sitemap: true

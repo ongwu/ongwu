@@ -1,0 +1,14 @@
+<!-- JavaScript -->
+<script src="<%= url_for('js/main.js') %>"></script>
+
+<!-- jQuery (for search functionality) -->
+<script src="<%= url_for('js/jquery.min.js') %>"></script>
+
+<!-- Bootstrap JS (for modal functionality) -->
+<script src="<%= url_for('js/bootstrap.bundle.min.js') %>"></script>
+
+<!-- 搜索功能 -->
+<%- js('js/search') %>
+<script>searchFunc('<%= url_for('search.xml') %>', 'searchInput', 'searchResult');</script>
+
+

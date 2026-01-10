@@ -1,0 +1,60 @@
+<% if (theme.back_to_top && theme.back_to_top.enable !== false) { %>
+<div id="back-to-top" class="back-to-top" style="display: none;">
+    <div class="back-to-top-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L12 20M12 4L6 10M12 4L18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    <% if (theme.back_to_top.scrollpercent !== false) { %>
+    <div class="back-to-top-percent">0%</div>
+    <% } %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const backToTop = document.getElementById('back-to-top');
+    const backToTopBtn = backToTop.querySelector('.back-to-top-btn');
+    const backToTopPercent = backToTop.querySelector('.back-to-top-percent');
+    
+    // 显示/隐藏按钮
+    function toggleBackToTop() {
+        if (window.pageYOffset > 300) {
+            backToTop.style.display = 'block';
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    }
+    
+    // 更新滚动百分比
+    function updateScrollPercent() {
+        if (backToTopPercent) {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+            backToTopPercent.textContent = scrollPercent + '%';
+        }
+    }
+    
+    // 返回顶部
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+    
+    // 事件监听
+    window.addEventListener('scroll', function() {
+        toggleBackToTop();
+        updateScrollPercent();
+    });
+    
+    backToTopBtn.addEventListener('click', scrollToTop);
+    
+    // 初始状态
+    toggleBackToTop();
+    updateScrollPercent();
+});
+</script>
+<% } %>

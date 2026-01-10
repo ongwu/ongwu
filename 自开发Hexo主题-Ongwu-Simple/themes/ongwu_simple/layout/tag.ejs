@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+    <%- partial('partial/head') %>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+            <%- partial('partial/sidebar') %>
+        </div>
+        
+        <!-- 右侧标签内容区 -->
+        <div class="main-content">
+            <!-- 小工具横向布局 -->
+            <div class="widgets-container">
+                <%- partial('partial/recent-posts') %>
+                <%- partial('partial/categories') %>
+                <%- partial('partial/tags') %>
+                <%- partial('partial/archives') %>
+            </div>
+            
+            <div class="tag-container">
+                <% if (page.tag) { %>
+                    <!-- 具体标签页面 -->
+                    <header class="tag-header">
+                        <h1 class="tag-title">标签：<%= page.tag %></h1>
+                        <p class="tag-description">共 <%= page.posts ? page.posts.length : 0 %> 篇文章</p>
+                    </header>
+                    
+                    <div class="tag-posts">
+                        <% if (page.posts && page.posts.length > 0) { %>
+                        <% page.posts.each(function(post) { %>
+                        <article class="article-card">
+                            <h2 class="article-title">
+                                <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+                            </h2>
+                            <p class="article-excerpt" style="width: 300px; margin: 0 0 15px 0; font-size: 14px; line-height: 1.6; word-wrap: break-word; word-break: break-all;">
+                                <% 
+                                var content = strip_html(post.excerpt || post.content) || '';
+                                var cleanContent = content.replace(/\s+/g, ' ').trim();
+                                var excerpt = cleanContent.length > 222 ? cleanContent.substring(0, 222) + '...' : cleanContent;
+                                %>
+                                <%= excerpt %>
+                            </p>
+                            <div class="article-meta">
+                                <span class="date">发布于 <%= date(post.date, 'YYYY-MM-DD') %></span>
+                                <% if (post.categories && post.categories.length > 0) { %>
+                                    <span class="category">
+                                        <a href="<%= url_for(post.categories.data[0].path) %>">
+                                            <%= post.categories.data[0].name %>
+                                        </a>
+                                    </span>
+                                <% } %>
+                            </div>
+                        </article>
+                        <% }); %>
+                        <% } else { %>
+                            <div class="no-posts">
+                                <p>该标签下暂无文章</p>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <!-- 标签索引页面 -->
+                    <div class="tag-cloud-simple">
+                        <% if (site.tags && site.tags.length > 0) { %>
+                            <% site.tags.each(function(tag) { %>
+                            <a href="<%= url_for(tag.path) %>" class="tag-cloud-item">
+                                #<%= tag.name %>
+                            </a>
+                            <% }); %>
+                        <% } else { %>
+                            <div class="no-tags">
+                                <p>暂无标签</p>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 搜索模态框 -->
+    <%- partial('partial/search-modal') %>
+    
+    <!-- 返回顶部按钮 -->
+    <%- partial('partial/back-to-top') %>
+    
+    <%- partial('partial/footer') %>
+    <%- partial('partial/scripts') %>
+</body>
+</html>

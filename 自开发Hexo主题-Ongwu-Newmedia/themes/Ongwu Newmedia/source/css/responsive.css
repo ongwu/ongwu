@@ -1,0 +1,975 @@
+/* 响应式布局 - 适配不同设备屏幕 */
+
+/* 平板设备（768px - 1199px） */
+@media (max-width: 1199px) {
+  /* 容器 */
+  .container {
+    width: 100%;
+  }
+  
+  /* 侧边栏 */
+  .sidebar {
+    width: 250px;
+  }
+  
+  .content.has-sidebar {
+    width: calc(100% - 280px);
+  }
+  
+  /* Banner区域 */
+  .banner-title {
+    font-size: 2rem;
+  }
+  
+  /* 文章列表 */
+  .post-thumbnail {
+    width: 150px;
+    margin-right: 15px;
+  }
+  
+  .post-thumb-img {
+    height: 90px;
+  }
+  
+  .post-content.has-thumbnail {
+    margin-left: 165px;
+  }
+  
+  /* 相关文章 */
+  .related-list {
+    flex-direction: column;
+  }
+  
+  .related-thumb-img {
+    height: 180px;
+  }
+}
+
+/* 移动设备（768px及以下） */
+@media (max-width: 768px) {
+  /* 主容器外边距 */
+  
+  /* 调整相关推荐图片大小 */
+  .related-item {
+    min-width: 150px; /* 减小最小宽度 */
+    max-width: 200px; /* 设置最大宽度 */
+  }
+  
+  .related-thumb-img {
+    height: 100px; /* 减小高度 */
+  }
+  .container {
+    margin: 2px;
+    box-sizing: border-box;
+  }
+  
+  /* 幻灯片优化 - 移动端强制显示所有幻灯片 */
+  .banner-slider {
+    display: block !important;
+    margin-bottom: 10px !important;
+    overflow: visible !important;
+    position: relative !important;
+    z-index: 100 !important;
+    height: auto !important;
+  }
+  
+  /* 首先修复banner-container的问题 */
+  .banner-container {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 0 !important;
+    gap: 10px !important;
+    position: relative !important;
+    display: flex !important;
+  }
+  
+  /* 强制显示主幻灯片 */
+  .main-slide {
+    display: block !important;
+    width: 100% !important;
+    height: 170px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
+    flex: none !important;
+    min-height: 0 !important;
+    border-radius: 12px !important;
+  }
+  
+  .main-slide .slide-item {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    display: block !important;
+  }
+  
+  /* 强制显示小幻灯片，改为水平布局 */
+  .side-slides {
+    display: flex !important;
+    width: 100% !important;
+    height: 122.25px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    overflow: visible !important;
+    gap: 8px !important;
+    flex-wrap: nowrap !important;
+    flex-direction: row !important;
+  }
+  
+  /* 确保链接作为flex容器 */
+  .side-slides a.slide-link {
+    display: block !important;
+    flex: 1 !important;
+    margin-bottom: 0 !important;
+    position: relative !important;
+    height: 122.25px !important;
+    width: calc(50% - 4px) !important;
+    min-width: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  /* 确保小幻灯片项目正确显示 */
+  .side-slides .slide-item {
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* 小幻灯片特定样式 */
+  .small-slide {
+    height: 122.25px !important;
+    width: 100% !important;
+    position: relative !important;
+    display: block !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+  }
+  
+  .slide-item {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    z-index: 1 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+  
+  /* 修复图片绝对定位问题 - 加强优先级 */
+  .slide-item img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    opacity: 1 !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1 !important;
+  }
+  
+  /* 确保主幻灯片图片高度正确 */
+  .main-slide .slide-item img {
+    height: 170px !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  
+  /* 确保主幻灯片正确显示 - 加强所有相关元素的样式 */
+  .main-slide {
+    display: block !important;
+    width: 100% !important;
+    height: 170px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 10 !important;
+    overflow: hidden !important;
+    flex: none !important;
+    min-height: 0 !important;
+    border-radius: 12px !important;
+  }
+  
+  /* 确保主幻灯片不会被任何样式覆盖 */
+  .banner-slider .main-slide {
+    height: 170px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  .main-slide .slide-item {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+  }
+  
+  .main-slide .slide-item img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+  }
+  
+  /* 幻灯片链接 */
+  .slide-link {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  
+  /* 确保描述文字可见 */
+  .slide-description {
+    padding: 8px 12px !important;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%) !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 3 !important;
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  
+  .slide-description p {
+    font-size: 16px !important;
+    color: white !important;
+    margin: 0 !important;
+  }
+  
+  /* 强制覆盖所有可能的冲突样式 */
+  * {
+    --main-slide-height: 170px !important;
+  }
+  
+  /* 确保所有幻灯片都有圆角 */
+  .slide-item {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  .banner-slider {
+    border-radius: 12px !important;
+    overflow: visible !important;
+  }
+  
+  .slide-link {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  /* 导航栏 */
+  .navbar-nav {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  /* 修复导航栏高度问题 - 移动端专用 */
+  body .navbar {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+  }
+  
+  body .container.navbar-container {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    align-items: center !important;
+  }
+  
+  body .navbar-brand {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+  }
+  
+  body .navbar-right {
+    height: 48px !important;
+    min-height: 48px !important;
+    max-height: 48px !important;
+    align-items: center !important;
+  }
+  
+  body .logo-text {
+    font-size: 16px !important;
+    line-height: 48px !important;
+  }
+  
+  body .mobile-menu-btn {
+    margin: 0 5px !important;
+  }
+  
+  /* 主内容区 */
+  .main-content {
+    margin-top: 55px; /* 比导航栏高度多一点，确保不重叠 */
+  }
+  
+  /* 移动端菜单位置调整 */
+  body .mobile-menu {
+    top: 48px !important;
+  }
+  
+  /* 确保body的margin-top与导航栏高度匹配 */
+  body.header-fixed {
+    margin-top: 48px !important;
+  }
+  
+  /* 文章列表保持水平布局 - 移动端优化 */
+  .post-item {
+    flex-direction: row !important;
+    min-height: 120px !important;
+  }
+  
+  .post-thumbnail {
+    width: 120px !important;
+    height: 80px !important;
+    margin-right: 10px !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .post-thumb-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  
+  .post-content.has-thumbnail {
+    margin-left: 0 !important;
+  }
+  
+  /* 确保文章预览在移动端正常显示 */
+  .post-content .post-excerpt {
+    margin: 10px 0 !important;
+  }
+  
+  .post-content .post-excerpt p {
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    height: auto !important;
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    box-orient: unset !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+  }
+  
+  /* 侧边栏 */
+  .sidebar {
+    display: none;
+  }
+  
+  .content.has-sidebar {
+    width: 100%;
+  }
+  
+  /* Banner区域 */
+  .banner {
+    padding: 40px 0;
+  }
+  
+  .banner-title {
+    font-size: 1.8rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 1rem;
+  }
+  
+  .banner-description {
+    font-size: 0.9rem;
+  }
+  
+  .banner-btn {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
+  
+  /* 文章列表 */
+  /* 移动端文章项样式优化 */
+  .post-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 1px;
+    background-color: white;
+    border-radius: 0;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    position: relative;
+    display: block !important;
+    padding: 0px 0 0px 0;
+    min-height: auto;
+    opacity: 1 !important;
+    z-index: 1;
+  }
+
+  .post-item:last-child {
+    border-bottom: none;
+  }
+
+  .post-category-label {
+    display: none !important;
+  }
+  
+  /* 优化移动端缩略图和内容布局 */
+  .post-thumbnail {
+    float: none !important;
+    width: 120px !important;
+    height: 80px !important;
+    margin-right: 10px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .post-thumb-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  /* 移动端保持文章列表布局 - 图片左、文章信息右，右侧高度略小于图片 */
+  .post-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    padding: 10px 0 !important;
+    min-height: 120px !important;
+  }
+  
+  .post-thumbnail {
+    width: 120px !important;
+    height: 80px !important;
+    margin-right: 10px !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .post-content.has-thumbnail {
+    margin-left: 0 !important;
+    flex: 1 !important;
+    max-height: 70px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+  }
+  
+  /* 移动端摘要样式 */
+  .post-content .post-excerpt p {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    height: 2.8em !important;
+    display: -webkit-box !important;
+    display: box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    box-orient: vertical !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  
+  /* 标题样式优化 */
+  .post-title {
+    font-size: 0.9rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+    line-height: 1.4 !important;
+    margin: 0 0 0px 0 !important;
+  }
+
+  /* 优化分类和日期的布局 */
+  .post-meta {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    margin-top: -48px !important;
+    margin-bottom: 2px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    position: relative;
+    top: 0;
+  }
+
+  .post-meta span {
+    margin-right: 15px !important;
+    margin-bottom: 0 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+  }
+  
+  /* 移动端隐藏文章摘要 */
+  .post-excerpt, .post-excerpt p {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* 分页 */
+  .pagination {
+    font-size: 12px;
+  }
+  
+  .pagination-item {
+    margin: 0 2px;
+  }
+  
+  .pagination-link {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    margin: 2px;
+    padding: 0;
+    background-size: 100% 100%;
+  }
+  
+  .pagination-ellipsis {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+  
+  /* 实现分页数量多时隐藏中间页数的效果 */
+  .pagination-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+  }
+  
+  /* 显示前3个和后3个分页按钮，隐藏中间的 */
+  .pagination-item:not(:first-child):not(:nth-child(2)):not(:nth-child(3)):not(:last-child):not(:nth-last-child(2)):not(:nth-last-child(3)) {
+    display: none;
+  }
+  
+  /* 在第3个和倒数第3个之间添加省略号 */
+  .pagination-item:nth-child(3):not(:nth-last-child(3)):not(:nth-last-child(4)):not(:nth-last-child(5)) {
+    position: relative;
+  }
+  
+  .pagination-item:nth-child(3):not(:nth-last-child(3)):not(:nth-last-child(4)):not(:nth-last-child(5))::after {
+    position: absolute;
+    right: -25px;
+    top: 0;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #828a92;
+    background: none;
+    border: none;
+  }
+  
+  /* 文章页 - 移除上内边距避免标题被裁剪 */
+  .post {
+    padding: 0 20px 20px 20px;
+    overflow: visible;
+  }
+  
+  /* 调整标题容器 */
+  .post-header {
+    position: relative;
+    padding-top: 50px;
+    overflow: visible;
+  }
+  
+  /* 确保文章标题可见 */
+  .post-header h1.post-title {
+    font-size: 1.5rem;
+    position: relative;
+    top: -50px;
+    left: 0;
+    margin: 0 0 20px 0;
+    overflow: visible;
+    z-index: 100;
+    color: #121212;
+    background-color: transparent;
+  }
+  
+  h3.post-title {
+    font-size: 1.5rem;
+  }
+  
+  .post-meta {
+    font-size: 16px;
+  }
+  
+  .post-meta span {
+    margin-right: 10px;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px !important;
+  }
+  
+  .post-content {
+    font-size: 1rem;
+  }
+  
+  /* 文章导航 */
+  .post-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .post-nav-prev,
+  .post-nav-next {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  /* 社交分享 */
+  .post-share {
+    text-align: center;
+  }
+  
+  .share-links {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  
+  /* 翻译功能 */
+  .translate-wrapper {
+    text-align: center;
+  }
+  
+  /* 页面 */
+  .page {
+    padding: 20px;
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .page-meta {
+    font-size: 16px;
+  }
+  
+  .page-meta span {
+    margin-right: 10px;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  
+  /* 归档页 */
+  .archive {
+    padding: 20px;
+  }
+  
+  .archive-title {
+    font-size: 1.5rem;
+  }
+  
+  .archive-year {
+    font-size: 1.3rem;
+  }
+  
+  .archive-month {
+    font-size: 1.1rem;
+  }
+  
+  .archive-date {
+    display: block;
+    width: auto;
+    margin-bottom: 5px;
+  }
+  
+  /* 页脚 */
+  .footer {
+    padding: 30px 0;
+  }
+  
+  /* 返回顶部按钮 - 基础样式 */
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    border-radius: 50%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 9999;
+  }
+
+  /* 显示返回顶部按钮 */
+  .back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 鼠标悬停效果 */
+  .back-to-top:hover {
+    background-color: #555;
+    transform: translateY(-3px);
+  }
+
+  /* 移动设备（767px及以下） */
+  @media (max-width: 767px) {
+    .back-to-top {
+      bottom: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 16px;
+    }
+  }
+
+  /* 小型移动设备（480px及以下） */
+  @media (max-width: 480px) {
+    .back-to-top {
+      bottom: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      font-size: 14px;
+    }
+  }
+
+  /* 打印样式中隐藏 */
+  @media print {
+    .back-to-top {
+      display: none !important;
+    }
+}
+
+/* 小型移动设备（480px及以下） */
+@media (max-width: 480px) {
+  /* Banner区域 */
+  .banner {
+    padding: 30px 0;
+  }
+  
+  /* 幻灯片进一步优化 - 小型移动设备 */
+  .main-slide {
+    height: 170px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  .side-slides {
+    height: 122.25px !important;
+    gap: 6px !important;
+  }
+  
+  .side-slides a.slide-link {
+    height: 122.25px !important;
+    width: calc(50% - 3px) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+  
+  .small-slide {
+    height: 122.25px !important;
+    border-radius: 12px !important;
+  }
+  
+  /* 幻灯片描述文字大小调整 */
+  .slide-description p {
+    font-size: 14px !important;
+  }
+  
+  .banner-title {
+    font-size: 1.5rem;
+  }
+  
+  .banner-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .banner-btn {
+    padding: 8px 20px;
+    font-size: 0.8rem;
+  }
+  
+  /* 文章列表 */
+  .post-thumb-img {
+    height: 120px;
+  }
+  
+  .post-title {
+    font-size: 1.1rem;
+  }
+  
+  /* 文章页 */
+  .post-title {
+    font-size: 1.3rem;
+  }
+  
+  /* 页面 */
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  /* 归档页 */
+  .archive-title {
+    font-size: 1.3rem;
+  }
+  
+  /* 侧边栏小部件（在移动端隐藏，但需要为可能的显示做准备） */
+  .widget {
+    padding: 15px;
+  }
+  
+  .widget-title {
+    font-size: 1rem;
+  }
+  
+  /* 社交分享 */
+  .share-links a {
+    padding: 6px 10px;
+    font-size: 16px;
+  }
+  
+  /* 点赞按钮 */
+  .like-btn {
+    padding: 8px 25px;
+    font-size: 16px;
+  }
+  
+  /* 代码高亮 */
+  pre {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  code {
+    font-size: 16px;
+  }
+}
+
+/* 竖屏模式（高度小于宽度） */
+@media (orientation: portrait) {
+  /* 在竖屏模式下可能需要的特殊样式 */
+  
+  /* 文章缩略图 */
+  .post-thumb-img {
+    height: auto;
+    max-height: 200px;
+  }
+  
+  /* 相关文章缩略图 */
+  .related-thumb-img {
+    height: auto;
+    max-height: 150px;
+  }
+}
+
+/* 横屏模式（宽度小于高度） */
+@media (orientation: landscape) {
+  /* 在横屏模式下可能需要的特殊样式 */
+  
+  /* 主内容区 */
+  .main-content {
+    margin-top: 70px;
+  }
+  
+  /* 移动端菜单 */
+  .mobile-menu {
+    top: 50px;
+  }
+  
+  /* 移动菜单字体优化 */
+  .mobile-menu a {
+    font-size: 0.9rem !important;
+    padding: 12px 20px !important;
+  }
+}
+
+/* 高分辨率屏幕（Retina等） */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* 高分辨率屏幕下的样式优化 */
+  
+  /* 可以在这里添加针对高分辨率屏幕的特定样式，比如图标、图片等 */
+  .logo img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  /* 打印时隐藏不需要的元素 */
+  .navbar,
+  .mobile-menu,
+  .sidebar,
+  .banner,
+  .pagination,
+  .post-share,
+  .post-like,
+  .post-comments,
+  .related-posts,
+  .footer,
+  .back-to-top,
+  .translate-wrapper {
+    display: none !important;
+  }
+  
+  /* 调整打印样式 */
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12pt !important;
+  }
+  
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .content {
+    width: 100% !important;
+  }
+  
+  .post,
+  .page,
+  .archive {
+    padding: 0 !important;
+    box-shadow: none !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+  
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+}

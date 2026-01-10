@@ -1,0 +1,89 @@
+<article class="page">
+  <!-- 页面头部 -->
+  <header class="page-header">
+    <% if (theme.theme_settings.article.show_title) { %>
+    <h1 class="page-title"><%= page.title %></h1>
+    <% } %>
+    
+    <!-- 页面元信息 -->
+    <% if (theme.theme_settings.article.show_meta) { %>
+    <div class="page-meta">
+      <!-- 日期 -->
+      <% if (theme.theme_settings.article.show_date) { %>
+      <span class="page-date"><i class="far fa-calendar"></i> <%= date(page.date, config.date_format) %></span>
+      <% } %>
+      
+      <!-- 作者 -->
+      <% if (theme.theme_settings.article.show_author && page.author) { %>
+      <span class="page-author"><i class="far fa-user"></i> <%= page.author %></span>
+      <% } %>
+      
+      <!-- 字数统计 -->
+      <% if (theme.theme_settings.article.word_count) { %>
+      <% var content = page.content.replace(/<[^>]*>/g, '').trim(); %>
+      <% var wordCount = content.length; %>
+      <span class="page-words"><i class="far fa-file-alt"></i> <%= wordCount %> 字</span>
+      <% } %>
+      
+      <!-- 阅读时间 -->
+      <% if (theme.theme_settings.article.reading_time) { %>
+      <% var content = page.content.replace(/<[^>]*>/g, '').trim(); %>
+      <% var wordCount = content.length; %>
+      <% var readingTime = Math.ceil(wordCount / 300); %>
+      <span class="page-reading-time"><i class="far fa-clock"></i> <%= readingTime %> 分钟</span>
+      <% } %>
+    </div>
+    <% } %>
+  </header>
+  
+  <!-- 页面正文 -->
+  <div class="page-content">
+    <%- page.content %>
+  </div>
+  
+  <!-- 社交分享 -->
+  <% if (theme.share && theme.share.enable) { %>
+  <div class="page-share">
+    <span><i class="fas fa-share-alt"></i> 分享到：</span>
+    <div class="share-links">
+      <% if (theme.share.platforms && theme.share.platforms.includes('wechat')) { %>
+      <a href="javascript:void(0);" title="分享到微信" class="share-wechat"><i class="fab fa-weixin"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('weibo')) { %>
+      <a href="http://service.weibo.com/share/share.php?url=<%= encodeURIComponent(page.permalink) %>&title=<%= encodeURIComponent(page.title) %>&appkey=" target="_blank" title="分享到微博" class="share-weibo"><i class="fab fa-weibo"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('twitter')) { %>
+      <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent(page.permalink) %>&text=<%= encodeURIComponent(page.title) %>" target="_blank" title="分享到Twitter" class="share-twitter"><i class="fab fa-twitter"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('facebook')) { %>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(page.permalink) %>" target="_blank" title="分享到Facebook" class="share-facebook"><i class="fab fa-facebook"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('linkedin')) { %>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= encodeURIComponent(page.permalink) %>&title=<%= encodeURIComponent(page.title) %>&summary=<%= encodeURIComponent(page.description || page.excerpt) %>&source=" target="_blank" title="分享到LinkedIn" class="share-linkedin"><i class="fab fa-linkedin"></i></a>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+  
+  <!-- 评论区域 -->
+  <div class="page-comments">
+    <h3 class="comments-title"><i class="fas fa-comments"></i> 评论</h3>
+    <!-- Waline评论系统 -->
+    <div id="waline-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@2.15.1/dist/waline.css">
+    <script src="https://cdn.jsdelivr.net/npm/@waline/client@2.15.1/dist/waline.min.js"></script>
+    <script>
+      Waline.init({
+        el: '#waline-container',
+        serverURL: 'https://comment.ongwu.cn/',
+        placeholder: '欢迎留言...',
+        path: window.location.pathname,
+        meta: ['nick', 'mail', 'link'],
+        requiredMeta: ['nick'],
+        pageSize: 10,
+        lang: 'zh-CN',
+        dark: 'auto',
+      });
+    </script>
+  </div>
+</article>

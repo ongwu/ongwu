@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+    <%- partial('partial/head') %>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+            <%- partial('partial/sidebar') %>
+        </div>
+        
+        <!-- 右侧分类内容区 -->
+        <div class="main-content">
+            <!-- 小工具横向布局 -->
+            <div class="widgets-container">
+                <%- partial('partial/recent-posts') %>
+                <%- partial('partial/categories') %>
+                <%- partial('partial/tags') %>
+                <%- partial('partial/archives') %>
+            </div>
+            
+            <div class="category-container">
+                <% if (page.category) { %>
+                    <!-- 具体分类页面 -->
+                    <header class="category-header">
+                        <h1 class="category-title">分类：<%= page.category %></h1>
+                        <p class="category-description">共 <%= page.posts ? page.posts.length : 0 %> 篇文章</p>
+                    </header>
+                    
+                    <div class="category-posts">
+                        <% if (page.posts && page.posts.length > 0) { %>
+                        <% page.posts.each(function(post) { %>
+                        <article class="article-card">
+                            <h2 class="article-title">
+                                <a href="<%= url_for(post.path) %>"><%= post.title %></a>
+                            </h2>
+                            <p class="article-excerpt" style="width: 300px; margin: 0 0 15px 0; font-size: 14px; line-height: 1.6; word-wrap: break-word; word-break: break-all;">
+                                <% 
+                                var content = strip_html(post.excerpt || post.content) || '';
+                                var cleanContent = content.replace(/\s+/g, ' ').trim();
+                                var excerpt = cleanContent.length > 222 ? cleanContent.substring(0, 222) + '...' : cleanContent;
+                                %>
+                                <%= excerpt %>
+                            </p>
+                            <div class="article-meta">
+                                <span class="date">发布于 <%= date(post.date, 'YYYY-MM-DD') %></span>
+                                <% if (post.categories && post.categories.length > 0) { %>
+                                    <span class="category">
+                                        <a href="<%= url_for(post.categories.data[0].path) %>">
+                                            <%= post.categories.data[0].name %>
+                                        </a>
+                                    </span>
+                                <% } %>
+                            </div>
+                        </article>
+                        <% }); %>
+                        <% } else { %>
+                            <div class="no-posts">
+                                <p>该分类下暂无文章</p>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } else { %>
+                    <!-- 分类索引页面 -->
+                    <div class="category-list-format">
+                        <% if (site.categories && site.categories.length > 0) { %>
+                            <% site.categories.each(function(category) { %>
+                            <div class="category-row">
+                                <a href="<%= url_for(category.path) %>" class="category-name-link">
+                                    <%= category.name %>
+                                </a>
+                                <span class="category-count">（<%= category.posts.length %>）</span>
+                            </div>
+                            <% }); %>
+                        <% } else { %>
+                            <div class="no-categories">
+                                <p>暂无分类</p>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 搜索模态框 -->
+    <%- partial('partial/search-modal') %>
+    
+    <!-- 返回顶部按钮 -->
+    <%- partial('partial/back-to-top') %>
+    
+    <%- partial('partial/footer') %>
+    <%- partial('partial/scripts') %>
+</body>
+</html>

@@ -1,0 +1,169 @@
+# ongwu 主题配置文件
+# 网站基础设置
+favicon: /favicon.ico
+logo:
+  enable: false
+  path: /images/logo.svg
+
+# Banner幻灯片设置
+banner:
+  enable: true
+  slides:
+    - image: /images/banner1.jpg
+      description: Windows Server 2022 新功能详解
+      link: /archives/2025/10/windows-server-2022-new-features
+    - image: /images/banner2.jpg
+      description: Windows 11 系统优化指南
+      link: /archives/2025/10/windows-11-optimization-guide
+    - image: /images/banner3.jpg
+      description: 精选Windows必备软件推荐
+      link: /archives/2025/10/essential-windows-software
+
+site:
+  title: Windows 极客
+  subtitle: Windows 技术分享平台
+  description: 专注于 Windows 系统、软件、技巧的极客知识分享平台
+  keywords: Windows, 极客, 技术, 技巧, 教程, 软件, 系统优化
+  author: Ongwu
+  language: zh-CN
+
+# 主题设置
+theme_settings:
+  # 颜色方案
+  color_scheme:
+    primary: '#3e61f9'
+    secondary: '#6c757d'
+    accent: '#3e61f9'
+    background: '#ffffff'
+    text: '#333333'
+    text_secondary: '#666666'
+    border: '#eaeaea'
+    hover: '#2a40b9'
+  
+  # 字体设置
+  font:
+    family: 'Noto Sans SC, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif'
+    size: '16px'
+  
+  # 布局设置
+  layout:
+    width: '1200px'
+    sidebar_width: '300px'
+    content_width: '860px'
+  
+  # 导航栏设置
+  navbar:
+    fixed: true
+    show_logo: false
+    show_title: true
+    menu:
+      "Windows server": '/categories/Windows-server/'
+      "网站留言": '/comment/'
+    mobile_menu: true
+  
+  # 页脚设置
+  footer:
+    show_copyright: true
+    show_social: true
+    show_analytics: true
+    copyright: '© 2025 Windows 极客'
+  
+  # 社交媒体链接
+  social:
+    github: 'https://github.com/ongwu'
+    email: 'mailto:ongwu007@qq.com'
+    qq: 'https://wpa.qq.com/msgrd?v=3&uin=2629442808&site=qq&menu=yes'
+    telegram: 'https://t.me/ongwu007'
+    
+  
+  # 文章设置
+  article:
+    show_title: true
+    show_meta: true
+    show_date: true
+    show_author: true
+    show_category: true
+    show_tags: true
+    show_read_more: false
+    excerpt_length: 180
+    word_count: true
+    reading_time: true
+  
+  # 侧边栏设置
+  sidebar:
+    show: true
+    position: 'right' # left or right
+    show_on_home: true
+    show_on_post: true
+    show_on_page: true
+    widgets:
+      search: true
+      recent_posts: true
+      popular_posts: true
+      categories: true
+      tags: true
+      archives: true
+      social: true
+      links: true
+
+  # 友情链接
+  links:
+    enable: true
+    items:
+      Windows官方: 'https://www.microsoft.com/zh-cn/windows'
+      Hexo官网: 'https://hexo.io/zh-cn/'
+      GitHub: 'https://github.com'
+      博客园: 'https://www.cnblogs.com/'
+  
+  # 评论系统
+  comment:
+    enable: true
+    type: 'waline' # disqus, gitalk, utterances, waline, etc.
+    disqus:
+      shortname: 'windows-geek'
+    waline:
+      serverURL: 'https://comment.ongwu.cn/'  #留言系统
+      placeholder: '欢迎留言...'
+      path: window.location.pathname
+      meta: ['nick', 'mail', 'link']
+      requiredMeta: ['nick']
+      pageSize: 10
+      lang: 'zh-CN'
+  
+  # 订阅功能
+  subscribe:
+    enable: true
+    rss: true
+    email: false
+  
+
+  
+  # 返回顶部
+  back_to_top:
+    enable: true
+    icon: 'fas fa-arrow-up'  # 使用Font Awesome 6语法
+    position: 'right'
+    offset: 50
+  
+  # 图片懒加载
+  lazyload:
+    enable: true
+  
+  # 代码高亮
+  highlight:
+    enable: true
+    style: 'atom-one-dark'
+  
+  # 动画效果
+  animation:
+    enable: true
+    page_transition: true
+    post_entry: true
+    sidebar: true
+  
+  # 其他设置
+  other:
+    powered_by: true
+    show_hexo_link: true
+    mathjax: false
+    katex: false

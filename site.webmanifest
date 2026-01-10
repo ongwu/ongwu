@@ -1,0 +1,16 @@
+{
+  "name": "Ongwu 个人主页",
+  "short_name": "Ongwu",
+  "description": "热爱编程与设计的探索者",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

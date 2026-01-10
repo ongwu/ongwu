@@ -1,0 +1,468 @@
+<!-- jQuery库 -->
+<% if (theme.jquery && theme.jquery.enable) { %>
+  <script src="<%= theme.jquery.url || '//cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js' %>"></script>
+<% } else { %>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<% } %>
+
+<!-- 主题核心JavaScript -->
+<script src="<%- url_for('/js/main.js') %>"></script>
+
+<!-- 翻译功能 -->
+<script src="<%- url_for('/js/translate.js') %>"></script>
+
+<!-- 返回顶部功能 -->
+<script src="<%- url_for('/js/back-to-top.js') %>"></script>
+
+<!-- 分享功能 -->
+<script src="<%- url_for('/js/share.js') %>"></script>
+
+<!-- 代码高亮 -->
+<% if (theme.highlight && theme.highlight.enable) { %>
+  <% if (theme.highlight.prism && theme.highlight.prism.enable) { %>
+    <!-- Prism.js -->
+    <script src="<%= theme.highlight.prism.url || '//cdn.jsdelivr.net/npm/prismjs/prism.min.js' %>"></script>
+    
+    <!-- Prism.js 语言支持 -->
+    <% if (theme.highlight.prism.languages && theme.highlight.prism.languages.length > 0) { %>
+      <% theme.highlight.prism.languages.forEach(lang => { %>
+        <script src="<%= theme.highlight.prism.url_base || '//cdn.jsdelivr.net/npm/prismjs/components/' %>prism-<%= lang %>.min.js"></script>
+      <% }); %>
+    <% } else { %>
+      <!-- 常用语言支持 -->
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-css.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-html.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-python.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-java.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-c.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.min.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-csharp.min.js"></script>
+    <% } %>
+    
+    <!-- Prism.js 插件 -->
+    <% if (theme.highlight.prism.plugins && theme.highlight.prism.plugins.length > 0) { %>
+      <% theme.highlight.prism.plugins.forEach(plugin => { %>
+        <script src="<%= theme.highlight.prism.plugin_base || '//cdn.jsdelivr.net/npm/prismjs/plugins/' %><%= plugin %>.min.js"></script>
+        <% if (plugin === 'line-numbers') { %>
+          <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prismjs/plugins/line-numbers/prism-line-numbers.min.css">
+        <% } %>
+        <% if (plugin === 'copy-to-clipboard') { %>
+          <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.css">
+        <% } %>
+      <% }); %>
+    <% } %>
+  <% } else { %>
+    <!-- Highlight.js -->
+    <script src="<%= theme.highlight.url || '//cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/highlight.min.js' %>"></script>
+    
+    <!-- Highlight.js 语言支持 -->
+    <% if (theme.highlight.languages && theme.highlight.languages.length > 0) { %>
+      <% theme.highlight.languages.forEach(lang => { %>
+        <script src="<%= theme.highlight.url_base || '//cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/languages/' %><%= lang %>.min.js"></script>
+      <% }); %>
+    <% } else { %>
+      <!-- 自动检测语言 -->
+      <script src="//cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/core.min.js"></script>
+      <script>hljs.highlightAll();</script>
+    <% } %>
+  <% } %>
+<% } %>
+
+<!-- 懒加载 -->
+<% if (theme.lazyload && theme.lazyload.enable) { %>
+  <% if (theme.lazyload.lozad && theme.lazyload.lozad.enable) { %>
+    <!-- lozad.js -->
+    <script src="<%= theme.lazyload.lozad.url || '//cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js' %>"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const observer = lozad(); // 默认选择器是 [data-src]
+        observer.observe();
+      });
+    </script>
+  <% } else { %>
+    <!-- 自定义懒加载 -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const lazyImages = document.querySelectorAll('img.lazy');
+        
+        if ('IntersectionObserver' in window) {
+          const imageObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+              if (entry.isIntersecting) {
+                const image = entry.target;
+                image.src = image.dataset.src;
+                image.classList.add('lazy-loaded');
+                imageObserver.unobserve(image);
+              }
+            });
+          });
+          
+          lazyImages.forEach(function(image) {
+            imageObserver.observe(image);
+          });
+        } else {
+          // 降级处理
+          let lazyLoadThrottleTimeout;
+          
+          function lazyLoad() {
+            if (lazyLoadThrottleTimeout) {
+              clearTimeout(lazyLoadThrottleTimeout);
+            }
+            
+            lazyLoadThrottleTimeout = setTimeout(function() {
+              const scrollTop = window.pageYOffset;
+              
+              lazyImages.forEach(function(img) {
+                if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                  img.src = img.dataset.src;
+                  img.classList.add('lazy-loaded');
+                }
+              });
+              
+              if (lazyImages.length === 0) {
+                document.removeEventListener('scroll', lazyLoad);
+                window.removeEventListener('resize', lazyLoad);
+                window.removeEventListener('orientationchange', lazyLoad);
+              }
+            }, 20);
+          }
+          
+          document.addEventListener('scroll', lazyLoad);
+          window.addEventListener('resize', lazyLoad);
+          window.addEventListener('orientationchange', lazyLoad);
+          
+          // 初始加载
+          lazyLoad();
+        }
+      });
+    </script>
+  <% } %>
+<% } %>
+
+<!-- 平滑滚动 -->
+<% if (theme.smooth_scroll && theme.smooth_scroll.enable) { %>
+  <% if (theme.smooth_scroll.library && theme.smooth_scroll.library.enable) { %>
+    <!-- smooth-scroll.js -->
+    <script src="<%= theme.smooth_scroll.library.url || '//cdn.jsdelivr.net/npm/smooth-scroll/dist/smooth-scroll.min.js' %>"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const scroll = new SmoothScroll('a[href^="#"]', {
+          speed: <%= theme.smooth_scroll.speed || 500 %>,
+          offset: <%= theme.smooth_scroll.offset || 70 %>
+        });
+      });
+    </script>
+  <% } %>
+<% } %>
+
+<!-- 百度统计 -->
+<% if (theme.baidu_analytics && theme.baidu_analytics.enable && theme.baidu_analytics.id) { %>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?<%= theme.baidu_analytics.id %>";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+<% } %>
+
+<!-- Google Analytics -->
+<% if (theme.google_analytics && theme.google_analytics.enable && theme.google_analytics.id) { %>
+  <!-- 全局站点标签 (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= theme.google_analytics.id %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    
+    gtag('config', '<%= theme.google_analytics.id %>', {
+      'page_path': window.location.pathname
+    });
+  </script>
+<% } %>
+
+<!-- 评论系统 -->
+<% if (theme.comment && theme.comment.enable) { %>
+  <% if (theme.comment.type === 'disqus' && theme.comment.disqus && theme.comment.disqus.shortname) { %>
+    <!-- Disqus评论 -->
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+      var disqus_config = function () {
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      }; 
+      */
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://<%= theme.comment.disqus.shortname %>.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <% } else if (theme.comment.type === 'gitalk' && theme.comment.gitalk && theme.comment.gitalk.clientID) { %>
+    <!-- Gitalk评论 -->
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script>
+      const gitalk = new Gitalk({
+        clientID: '<%= theme.comment.gitalk.clientID %>',
+        clientSecret: '<%= theme.comment.gitalk.clientSecret %>',
+        repo: '<%= theme.comment.gitalk.repo %>',
+        owner: '<%= theme.comment.gitalk.owner %>',
+        admin: ['<%= theme.comment.gitalk.admin %>'],
+        id: window.location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+      
+      gitalk.render('gitalk-container')
+    </script>
+  <% } else if (theme.comment.type === 'utterances' && theme.comment.utterances && theme.comment.utterances.repo) { %>
+    <!-- Utterances评论 -->
+    <div id="utterances-container"></div>
+    <script src="https://utteranc.es/client.js"
+            repo="<%= theme.comment.utterances.repo %>"
+            issue-term="<%= theme.comment.utterances.issue_term || 'pathname' %>"
+            theme="<%= theme.comment.utterances.theme || 'github-light' %>"
+            crossorigin="anonymous"
+            async>
+    </script>
+  <% } else if (theme.comment.type === 'waline' && theme.comment.waline && theme.comment.waline.serverURL) { %>
+    <!-- Waline评论 -->
+    <div id="waline-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.css">
+    <script src="https://cdn.jsdelivr.net/npm/@waline/client/dist/waline.min.js"></script>
+    <script>
+      new Waline({
+        el: '#waline-container',
+        serverURL: '<%= theme.comment.waline.serverURL %>',
+        placeholder: '<%= theme.comment.waline.placeholder || '欢迎留言...' %>',
+        path: <%= theme.comment.waline.path || 'window.location.pathname' %>,
+        meta: <%= JSON.stringify(theme.comment.waline.meta || ['nick', 'mail', 'link']) %>,
+        requiredMeta: <%= JSON.stringify(theme.comment.waline.requiredMeta || ['nick']) %>,
+        pageSize: <%= theme.comment.waline.pageSize || 10 %>,
+        lang: '<%= theme.comment.waline.lang || 'zh-CN' %>',
+        dark: 'auto',
+      });
+    </script>
+  <% } %>
+<% } %>
+
+<!-- 自定义脚本 -->
+<% if (theme.custom_js && theme.custom_js.length > 0) { %>
+  <% theme.custom_js.forEach(js => { %>
+    <script src="<%- url_for(js) %>"></script>
+  <% }) %>
+<% } %>
+
+<!-- 页面加载完成后的处理 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 初始化翻译功能
+    if (window.Translator) {
+      window.Translator.init();
+    }
+    
+    // 初始化返回顶部功能
+    if (window.BackToTop) {
+      window.BackToTop.init();
+    }
+    
+    // 初始化分享功能
+    if (window.ShareSystem) {
+      window.ShareSystem.init();
+    }
+    
+    // 页面加载完成后的动画
+    const pageContent = document.querySelector('.main-content');
+    if (pageContent) {
+      pageContent.classList.add('page-loaded');
+    }
+    
+    // 移除加载动画
+    const loadingOverlay = document.querySelector('.loading-overlay');
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('fade-out');
+      setTimeout(() => {
+        loadingOverlay.remove();
+      }, 500);
+    }
+    
+    // 处理代码块的复制功能
+    const codeBlocks = document.querySelectorAll('pre code');
+    codeBlocks.forEach(block => {
+      const pre = block.parentElement;
+      if (!pre.querySelector('.copy-code-btn')) {
+        const copyBtn = document.createElement('button');
+        copyBtn.className = 'copy-code-btn';
+        copyBtn.innerHTML = '<i class="far fa-copy"></i>';
+        copyBtn.title = '复制代码';
+        
+        copyBtn.addEventListener('click', function() {
+          const codeText = block.textContent;
+          
+          if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(codeText).then(() => {
+              this.innerHTML = '<i class="fas fa-check"></i>';
+              setTimeout(() => {
+                this.innerHTML = '<i class="far fa-copy"></i>';
+              }, 2000);
+            }).catch(err => {
+              console.error('复制失败:', err);
+            });
+          } else {
+            // 降级处理
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+              document.execCommand('copy');
+              this.innerHTML = '<i class="fas fa-check"></i>';
+            } catch (err) {
+              console.error('降级复制也失败了:', err);
+            }
+            
+            document.body.removeChild(textArea);
+            
+            setTimeout(() => {
+              this.innerHTML = '<i class="far fa-copy"></i>';
+            }, 2000);
+          }
+        });
+        
+        pre.appendChild(copyBtn);
+      }
+    });
+    
+    // 处理图片点击放大
+    if (theme.image_viewer && theme.image_viewer.enable) {
+      const images = document.querySelectorAll('.post-content img, .page-content img');
+      
+      images.forEach(img => {
+        img.style.cursor = 'pointer';
+        
+        img.addEventListener('click', function() {
+          const src = this.getAttribute('src');
+          const alt = this.getAttribute('alt') || '图片';
+          
+          // 创建图片查看器
+          const viewer = document.createElement('div');
+          viewer.className = 'image-viewer';
+          viewer.innerHTML = `
+            <div class="image-viewer-overlay">
+              <img src="${src}" alt="${alt}" class="image-viewer-image">
+              <button class="image-viewer-close">&times;</button>
+            </div>
+          `;
+          
+          document.body.appendChild(viewer);
+          document.body.style.overflow = 'hidden';
+          
+          // 关闭图片查看器
+          const closeBtn = viewer.querySelector('.image-viewer-close');
+          const overlay = viewer.querySelector('.image-viewer-overlay');
+          
+          function closeViewer() {
+            viewer.classList.add('fade-out');
+            setTimeout(() => {
+              document.body.removeChild(viewer);
+              document.body.style.overflow = '';
+            }, 300);
+          }
+          
+          closeBtn.addEventListener('click', closeViewer);
+          overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+              closeViewer();
+            }
+          });
+          
+          // ESC键关闭
+          document.addEventListener('keydown', function handler(e) {
+            if (e.key === 'Escape') {
+              closeViewer();
+              document.removeEventListener('keydown', handler);
+            }
+          });
+        });
+      });
+      
+      // 添加图片查看器样式
+      const style = document.createElement('style');
+      style.textContent = `
+        .image-viewer {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 9999;
+          transition: opacity 0.3s ease;
+        }
+        
+        .image-viewer-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 20px;
+        }
+        
+        .image-viewer-image {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          border-radius: 4px;
+        }
+        
+        .image-viewer-close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          width: 40px;
+          height: 40px;
+          background-color: rgba(255, 255, 255, 0.1);
+          color: white;
+          border: none;
+          border-radius: 50%;
+          font-size: 24px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .image-viewer-close:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          transform: scale(1.1);
+        }
+        
+        .image-viewer.fade-out {
+          opacity: 0;
+        }
+      `;
+      
+      document.head.appendChild(style);
+    }
+  });
+</script>

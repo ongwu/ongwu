@@ -1,0 +1,22 @@
+<% if (theme.comments && theme.comments.service === 'waline') { %>
+<div id="waline"></div>
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+<script type="module">
+  import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+  
+  init({
+    el: '#waline',
+    serverURL: '<%= theme.comments.waline.serverURL %>',
+    path: '<%= page.path %>',
+    lang: '<%= theme.comments.waline.lang || "zh-CN" %>',
+    placeholder: '<%= theme.comments.waline.placeholder || "欢迎留言讨论..." %>',
+    avatar: '<%= theme.comments.waline.avatar || "https://cdn.sep.cc/avatar/${hash}" %>',
+    meta: ['nick', 'mail', 'link'],
+    requiredMeta: ['nick', 'mail'],
+    pageSize: <%= theme.comments.waline.pageSize || 10 %>,
+    visitor: <%= theme.comments.waline.visitor !== false %>,
+    comment: <%= theme.comments.waline.comment !== false %>,
+    pageview: <%= theme.comments.waline.pageview !== false %>
+  });
+</script>
+<% } %>

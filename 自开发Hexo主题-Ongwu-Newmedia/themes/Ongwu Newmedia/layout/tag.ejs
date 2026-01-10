@@ -1,0 +1,72 @@
+<article class="archive tag-archive">
+  <!-- 标签页头部 -->
+  <header class="archive-header">
+    <h1 class="archive-title"><i class="fas fa-tag"></i> 标签：<%= page.tag %></h1>
+    <p class="archive-count">共 <%= site.tags.findOne({name: page.tag}).length %> 篇文章</p>
+  </header>
+  
+  <!-- 文章列表 -->
+  <section class="post-list">
+    <div class="posts">
+      <% page.posts.each(function(post) { %>
+      <article class="post-item">
+        <!-- 文章缩略图 -->
+        <% if (post.thumbnail) { %>
+        <div class="post-thumbnail">
+          <a href="<%= url_for(post.path) %>" title="<%= post.title %>">
+            <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="post-thumb-img">
+          </a>
+        </div>
+        <% } %>
+        
+        <!-- 文章内容 -->
+        <div class="post-content<% if (post.thumbnail) { %> has-thumbnail<% } %>">
+          <!-- 文章标题 -->
+          <h3 class="post-title">
+            <a href="<%= url_for(post.path) %>" title="<%= post.title %>"><%= post.title %></a>
+          </h3>
+          
+          <!-- 文章摘要 -->
+          <div class="post-excerpt">
+            <p><%= strip_html(post.excerpt || post.content).substring(0, theme.theme_settings.article.excerpt_length) %>...</p>
+          </div>
+          
+          <!-- 文章元信息 -->
+          <div class="post-meta">
+            <span class="post-category">
+              <i class="far fa-folder"></i>
+              
+              
+              <% if (post.categories && post.categories.length > 0) { %>
+              <% post.categories.each(function(category, index) { %>
+                <a href="<%= url_for(category.path) %>" title="<%= category.name %>"><%= category.name %></a>
+                <% if (index < post.categories.length - 1) { %><%= config.category_generator.separator || ',' %> <% } %>
+              <% }) %>
+              <% } else { %>
+                未分类
+              <% } %>
+              
+            </span>
+            
+            
+            <!-- 日期 -->
+            <% if (theme.theme_settings.article.show_date) { %>
+            <span class="post-date"><i class="far fa-calendar"></i> <%= date(post.date, config.date_format) %></span>
+            <% } %>
+          </div>
+          
+          <!-- 阅读更多 -->
+          <% if (theme.theme_settings.article.show_read_more) { %>
+          <a href="<%= url_for(post.path) %>" class="post-read-more"><%= theme.theme_settings.article.read_more_text %></a>
+          <% } %>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="pagination">
+      <%- partial('_partial/pagination') %>
+    </div>
+  </section>
+</article>

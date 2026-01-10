@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>404 - <%= config.title %></title>
+  
+  <!-- 引入Hexo的head配置 -->
+  <%- partial('_partial/head') %>
+  
+  <!-- 404页面特定样式 -->
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .error-code {
+      font-size: 12rem;
+      font-weight: 900;
+      color: #f0f0f0;
+      margin: 0;
+      line-height: 1;
+      position: relative;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .error-code::before {
+      content: "404";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #4285f4, #0f9d58);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      filter: blur(20px);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    
+    @keyframes glow {
+      from {
+        opacity: 0.2;
+        filter: blur(20px);
+      }
+      to {
+        opacity: 0.8;
+        filter: blur(10px);
+      }
+    }
+    
+    .error-message {
+      font-size: 2rem;
+      color: #333;
+      margin: 20px 0 0;
+      font-weight: 500;
+    }
+    
+    .error-description {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 15px 0 30px;
+      line-height: 1.6;
+    }
+    
+    .back-home-btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: #4285f4;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    
+    .back-home-btn:hover {
+      background-color: #3367d6;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(66, 133, 244, 0.4);
+    }
+    
+    .back-home-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 15px rgba(66, 133, 244, 0.3);
+    }
+    
+    .error-suggestions {
+      margin-top: 40px;
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    .error-suggestions h3 {
+      font-size: 1.3rem;
+      color: #333;
+      margin-bottom: 15px;
+    }
+    
+    .suggested-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .suggested-link {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #f8f9fa;
+      color: #4285f4;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+    }
+    
+    .suggested-link:hover {
+      background-color: #e9ecef;
+      transform: translateY(-1px);
+    }
+    
+    /* 动画效果 */
+    .error-page-content {
+      animation: fadeIn 1s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .error-code {
+        font-size: 8rem;
+      }
+      
+      .error-code::before {
+        font-size: 8rem;
+      }
+      
+      .error-message {
+        font-size: 1.5rem;
+      }
+      
+      .error-description {
+        font-size: 1rem;
+      }
+      
+      .back-home-btn {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .error-code {
+        font-size: 6rem;
+      }
+      
+      .error-code::before {
+        font-size: 6rem;
+      }
+      
+      .error-message {
+        font-size: 1.2rem;
+      }
+      
+      .suggested-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .suggested-link {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航栏 -->
+  <%- partial('_partial/navbar') %>
+  
+  <!-- 主要内容区域 -->
+  <main class="container">
+    <div class="error-page">
+      <div class="error-page-content">
+        <h1 class="error-code" data-translate="404">404</h1>
+        <h2 class="error-message" data-translate="页面未找到">页面未找到</h2>
+        <p class="error-description" data-translate="抱歉，您访问的页面不存在或已被删除。">
+          抱歉，您访问的页面不存在或已被删除。
+        </p>
+        <a href="<%- url_for('/') %>" class="back-home-btn" data-translate="返回首页">返回首页</a>
+        
+        <div class="error-suggestions">
+          <h3 data-translate="您可能想访问这些页面">您可能想访问这些页面</h3>
+          <div class="suggested-links">
+            <a href="<%- url_for('/') %>" class="suggested-link" data-translate="首页">首页</a>
+            <a href="<%- url_for('/archives') %>" class="suggested-link" data-translate="文章归档">文章归档</a>
+            <a href="<%- url_for('/categories') %>" class="suggested-link" data-translate="分类">分类</a>
+            <a href="<%- url_for('/tags') %>" class="suggested-link" data-translate="标签">标签</a>
+            <a href="<%- url_for('/about') %>" class="suggested-link" data-translate="关于">关于</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <!-- 页脚 -->
+  <%- partial('_partial/footer') %>
+  
+  <!-- 返回顶部按钮 -->
+  <%- partial('_partial/back-to-top') %>
+  
+  <!-- 引入Hexo的脚本 -->
+  <%- partial('_partial/scripts') %>
+  
+  <!-- 404页面特定脚本 -->
+  <script>
+    // 添加错误页面的动态效果
+    document.addEventListener('DOMContentLoaded', function() {
+      // 添加随机浮动效果给404数字
+      const errorCode = document.querySelector('.error-code');
+      
+      function floatRandomly() {
+        const randomX = Math.random() * 10 - 5;
+        const randomY = Math.random() * 10 - 5;
+        
+        errorCode.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        
+        setTimeout(floatRandomly, 2000 + Math.random() * 3000);
+      }
+      
+      // 设置平滑过渡
+      errorCode.style.transition = 'transform 1s ease-out';
+      
+      // 启动随机浮动效果
+      setTimeout(floatRandomly, 2000);
+      
+      // 返回首页按钮动画
+      const backHomeBtn = document.querySelector('.back-home-btn');
+      
+      backHomeBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-2px) scale(1.05)';
+      });
+      
+      backHomeBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+      
+      // 建议链接的动画
+      const suggestedLinks = document.querySelectorAll('.suggested-link');
+      
+      suggestedLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-1px) scale(1.03)';
+          this.style.backgroundColor = '#e3f2fd';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0) scale(1)';
+          this.style.backgroundColor = '#f8f9fa';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

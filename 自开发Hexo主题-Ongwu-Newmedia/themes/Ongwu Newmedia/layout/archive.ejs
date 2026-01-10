@@ -1,0 +1,62 @@
+<article class="archive">
+  <!-- 归档页头部 -->
+  <header class="archive-header">
+    <h1 class="archive-title">
+      <% if (is_month()) { %>
+      <i class="fas fa-calendar-alt"></i> <%= page.year %> 年 <%= page.month %> 月
+      <% } else if (is_year()) { %>
+      <i class="fas fa-calendar-alt"></i> <%= page.year %> 年
+      <% } else { %>
+      <i class="fas fa-archive"></i> 全部文章
+      <% } %>
+    </h1>
+    <p class="archive-count">共 <%= page.posts.length %> 篇文章</p>
+  </header>
+  
+  <!-- 文章列表 -->
+  <section class="post-list">
+    <!-- 按年份和月份分组的文章列表 -->
+    <div class="archive-group">
+      <% if (page.posts.length) { %>
+      <% var lastYear, lastMonth; %>
+      <% page.posts.each(function(post) { %>
+      <% var year = post.date.year(); %>
+      <% var month = post.date.month() + 1; %>
+      
+      <!-- 年份标题 -->
+      <% if (year !== lastYear) { %>
+      <h3 class="archive-year"><%= year %></h3>
+      <% lastYear = year; %>
+      <% lastMonth = null; %>
+      <% } %>
+      
+      <!-- 月份标题 -->
+      <% if (month !== lastMonth) { %>
+      <h4 class="archive-month"><%= month %> 月</h4>
+      <% lastMonth = month; %>
+      <% } %>
+      
+      <!-- 文章条目 -->
+      <article class="archive-item">
+        <span class="archive-date"><%= post.date.format('MM-DD') %></span>
+        <a href="<%= url_for(post.path) %>" title="<%= post.title %>" class="archive-title"><%= post.title %></a>
+        <% if (post.categories.length > 0) { %>
+        <div class="archive-categories">
+          <% post.categories.each(function(category, index) { %>
+          <a href="<%= url_for(category.path) %>" title="<%= category.name %>" class="archive-category"><%= category.name %></a><% if (index < post.categories.length - 1) { %>, <% } %>
+          <% }) %>
+        </div>
+        <% } %>
+      </article>
+      <% }) %>
+      <% } else { %>
+      <p class="archive-empty">暂无文章</p>
+      <% } %>
+    </div>
+    
+    <!-- 分页 -->
+    <div class="pagination">
+      <%- partial('_partial/pagination') %>
+    </div>
+  </section>
+</article>

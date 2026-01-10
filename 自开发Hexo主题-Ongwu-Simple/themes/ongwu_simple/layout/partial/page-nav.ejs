@@ -1,0 +1,19 @@
+<!-- 页面导航菜单 -->
+<div class="page-nav">
+    <nav class="page-nav-menu">
+        <ul>
+            <li class="nav-item <%= page.type === 'index' ? 'active' : '' %>">
+                <a href="<%= url_for('/') %>">近期发布</a>
+            </li>
+            <li class="nav-item <%= page.type === 'category' ? 'active' : '' %>">
+                <a href="<%= url_for('categories') %>">分类</a>
+            </li>
+            <li class="nav-item <%= page.type === 'tag' ? 'active' : '' %>">
+                <a href="<%= url_for('tags') %>">标签</a>
+            </li>
+            <li class="nav-item <%= page.type === 'archive' ? 'active' : '' %>">
+                <a href="<%= url_for('archives') %>">归档</a>
+            </li>
+        </ul>
+    </nav>
+</div>

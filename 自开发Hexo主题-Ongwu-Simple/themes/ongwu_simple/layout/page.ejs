@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+    <%- partial('partial/head') %>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+            <%- partial('partial/sidebar') %>
+        </div>
+        
+        <!-- 右侧页面内容区 -->
+        <div class="main-content">
+            <article class="page">
+                <header class="page-header">
+                    <h1 class="page-title"><%= page.title %></h1>
+                </header>
+                
+                <div class="page-content">
+                    <%- page.content %>
+                </div>
+                
+                <!-- 评论区域 -->
+                <div class="comments-section">
+                    <h3 class="comments-title">评论</h3>
+                    <%- partial('partial/waline') %>
+                </div>
+            </article>
+        </div>
+    </div>
+    
+    <!-- 搜索模态框 -->
+    <%- partial('partial/search-modal') %>
+    
+    <!-- 返回顶部按钮 -->
+    <%- partial('partial/back-to-top') %>
+    
+    <%- partial('partial/footer') %>
+    <%- partial('partial/scripts') %>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<article class="post">
+  <!-- 文章头部 -->
+  <header class="post-header">
+    <!-- 文章标题 -->
+    <% if (theme.theme_settings.article.show_title) { %>
+    <h1 class="post-title"><%= page.title %></h1>
+    <% } %>
+    
+    <!-- 文章元信息 -->
+    <% if (theme.theme_settings.article.show_meta) { %>
+    <div class="post-meta">
+      <!-- 日期 -->
+      <% if (theme.theme_settings.article.show_date) { %>
+      <span class="post-date"><i class="far fa-calendar"></i> <%= date(page.date, config.date_format) %></span>
+      <% } %>
+      
+      <!-- 作者 -->
+      <% if (theme.theme_settings.article.show_author && page.author) { %>
+      <span class="post-author"><i class="far fa-user"></i> <%= page.author %></span>
+      <% } %>
+      
+      <!-- 分类 -->
+      <% if (theme.theme_settings.article.show_category && page.categories.length > 0) { %>
+      <span class="post-category">
+        <i class="far fa-folder"></i>
+        <% page.categories.each(function(category, index) { %>
+        <a href="<%= url_for(category.path) %>" title="<%= category.name %>"><%= category.name %></a><% if (index < page.categories.length - 1) { %>, <% } %>
+        <% }) %>
+      </span>
+      <% } %>
+      
+
+      
+      <!-- 字数统计 -->
+      <% if (theme.theme_settings.article.word_count) { %>
+      <% var content = page.content.replace(/<[^>]*>/g, '').trim(); %>
+      <% var wordCount = content.length; %>
+      <span class="post-words"><i class="far fa-file-alt"></i> <%= wordCount %> 字</span>
+      <% } %>
+      
+      <!-- 阅读时间 -->
+      <% if (theme.theme_settings.article.reading_time) { %>
+      <% var content = page.content.replace(/<[^>]*>/g, '').trim(); %>
+      <% var wordCount = content.length; %>
+      <% var readingTime = Math.ceil(wordCount / 300); %>
+      <span class="post-reading-time"><i class="far fa-clock"></i> <%= readingTime %> 分钟</span>
+      <% } %>
+    </div>
+    <% } %>
+  </header>
+  
+  <!-- 文章正文 -->
+  <div class="post-content">
+    <%- page.content %>
+  </div>
+  
+  <!-- 文章标签 -->
+  <% if (theme.theme_settings.article.show_tags && page.tags.length > 0) { %>
+  <div class="post-tags">
+    <span><i class="fas fa-tags"></i> 标签：</span>
+    <% page.tags.each(function(tag, index) { %>
+    <a href="<%= url_for(tag.path) %>" title="<%= tag.name %>" class="tag"><%= tag.name %></a><% if (index < page.tags.length - 1) { %>, <% } %>
+    <% }) %>
+  </div>
+  <% } %>
+  
+  <!-- 点赞功能 -->
+  <% if (theme.like && theme.like.enable) { %>
+  <div class="post-like">
+    <button class="like-btn"><i class="far fa-thumbs-up"></i> <span class="like-text">点赞</span> <span class="like-count">(0)</span></button>
+  </div>
+  <% } %>
+  
+  <!-- 社交分享 -->
+  <% if (theme.share && theme.share.enable) { %>
+  <div class="post-share">
+    <span><i class="fas fa-share-alt"></i> 分享到：</span>
+    <div class="share-links">
+      <% if (theme.share.platforms && theme.share.platforms.includes('wechat')) { %>
+      <a href="javascript:void(0);" title="分享到微信" class="share-wechat"><i class="fab fa-weixin"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('weibo')) { %>
+      <a href="http://service.weibo.com/share/share.php?url=<%= encodeURIComponent(page.permalink) %>&title=<%= encodeURIComponent(page.title) %>&appkey=" target="_blank" title="分享到微博" class="share-weibo"><i class="fab fa-weibo"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('twitter')) { %>
+      <a href="https://twitter.com/intent/tweet?url=<%= encodeURIComponent(page.permalink) %>&text=<%= encodeURIComponent(page.title) %>" target="_blank" title="分享到Twitter" class="share-twitter"><i class="fab fa-twitter"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('facebook')) { %>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=<%= encodeURIComponent(page.permalink) %>" target="_blank" title="分享到Facebook" class="share-facebook"><i class="fab fa-facebook"></i></a>
+      <% } %>
+      <% if (theme.share.platforms && theme.share.platforms.includes('linkedin')) { %>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=<%= encodeURIComponent(page.permalink) %>&title=<%= encodeURIComponent(page.title) %>&summary=<%= encodeURIComponent(page.description || page.excerpt) %>&source=" target="_blank" title="分享到LinkedIn" class="share-linkedin"><i class="fab fa-linkedin"></i></a>
+      <% } %>
+    </div>
+  </div>
+  <% } %>
+  
+  <!-- 文章导航 -->
+  <div class="post-nav">
+    <% if (page.prev) { %>
+    <a href="<%= url_for(page.prev.path) %>" class="post-nav-prev" title="<%= page.prev.title %>">
+      <i class="fas fa-chevron-left"></i> <span><%= page.prev.title %></span>
+    </a>
+    <% } %>
+    <% if (page.next) { %>
+    <a href="<%= url_for(page.next.path) %>" class="post-nav-next" title="<%= page.next.title %>">
+      <span><%= page.next.title %></span> <i class="fas fa-chevron-right"></i>
+    </a>
+    <% } %>
+  </div>
+  
+  <!-- 相关文章 -->
+  <div class="related-posts">
+    <h3 class="related-title"><i class="fas fa-th-list"></i> 相关推荐</h3>
+    <div class="related-list">
+      <% site.posts.limit(3).each(function(post) { %>
+      <article class="related-item">
+        <% if (post.thumbnail) { %>
+        <div class="related-thumbnail">
+          <a href="<%= url_for(post.path) %>" title="<%= post.title %>"><img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="related-thumb-img"></a>
+        </div>
+        <% } %>
+        <div class="related-content">
+          <h4 class="related-post-title"><a href="<%= url_for(post.path) %>" title="<%= post.title %>"><%= post.title %></a></h4>
+          <p class="related-post-date"><%= date(post.date, config.date_format) %></p>
+        </div>
+      </article>
+      <% }) %>
+    </div>
+  </div>
+  
+  <!-- 评论区域 -->
+  <% if (theme.comment && theme.comment.enable) { %>
+  <div class="post-comments">
+    <h3 class="comments-title"><i class="fas fa-comments"></i> 评论</h3>
+    <!-- Disqus评论系统 -->
+    <% if (theme.comment.type === 'disqus' && theme.comment.disqus && theme.comment.disqus.shortname) { %>
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      /*
+      var disqus_config = function () {
+      this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+      */
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://<%= theme.comment.disqus.shortname %>.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <% } %>
+    
+    <!-- 其他评论系统可以在这里添加 -->
+  </div>
+  <% } %>
+</article>

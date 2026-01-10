@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+    <%- partial('partial/head') %>
+</head>
+<body>
+    <!-- 移动端菜单按钮 -->
+    <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    
+    <div class="container">
+        <!-- 左侧边栏 -->
+        <div class="sidebar">
+            <%- partial('partial/sidebar') %>
+        </div>
+        
+        <!-- 右侧文章内容区 -->
+        <div class="main-content">
+            <article class="post">
+                <header class="post-header">
+                    <h1 class="post-title"><%= page.title %></h1>
+                    <div class="post-meta">
+                        <span class="post-date"><%= date(page.date, 'YYYY-MM-DD') %></span>
+                        <% if (page.categories && page.categories.length > 0) { %>
+                            <span class="post-category">
+                                <a href="<%= url_for(page.categories.data[0].path) %>">
+                                    <%= page.categories.data[0].name %>
+                                </a>
+                            </span>
+                        <% } %>
+                    </div>
+                </header>
+                
+                <div class="post-content">
+                    <%- page.content %>
+                </div>
+                
+                <footer class="post-footer">
+                    <div class="copyright">
+                        <p>本文由 <a href="<%= config.url %>"><%= config.title %></a> 发布，转载请注明本文链接: <a href="<%= config.url %><%= url_for(page.path) %>"><%= config.url %><%= url_for(page.path) %></a></p>
+                    </div>
+                </footer>
+                
+                <!-- 评论区域 -->
+                <div class="comments-section">
+                    <h3 class="comments-title">评论</h3>
+                    <%- partial('partial/waline') %>
+                </div>
+            </article>
+        </div>
+    </div>
+    
+    <!-- 搜索模态框 -->
+    <%- partial('partial/search-modal') %>
+    
+    <!-- 返回顶部按钮 -->
+    <%- partial('partial/back-to-top') %>
+    
+    <%- partial('partial/footer') %>
+    <%- partial('partial/scripts') %>
+</body>
+</html>

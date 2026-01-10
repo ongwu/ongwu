@@ -1,0 +1,13 @@
+<footer class="site-footer">
+    <div class="footer-content">
+        <p>&copy; <%= new Date().getFullYear() %> <a href="https://ongwu.cn" target="_blank">ONGWU BLOG</a>. 
+        <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/ongwu/ongwu-simple" target="_blank">Ongwu Simple</a>
+        <% if (theme.busuanzi && theme.busuanzi.enable) { %>
+        | Pv: <span id="busuanzi_site_pv"></span> & Uv: <span id="busuanzi_site_uv"></span>
+        <% } %></p>
+    </div>
+</footer>
+
+<% if (theme.busuanzi && theme.busuanzi.enable) { %>
+<script defer src="<%= theme.busuanzi.script_url || 'https://busuanzi.9420.ltd/js' %>"></script>
+<% } %>

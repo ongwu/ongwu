@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ongwu 个人主页 - 热爱编程与设计的探索者</title>
+    
+    <!-- 基本SEO信息 -->
+    <meta name="description" content="Ongwu的个人主页，展示我的编程项目、技术博客和个人简介。热爱编程与设计的探索者，不断学习和创造有价值的作品。">
+    <meta name="keywords" content="Ongwu,个人主页,编程,设计,技术博客,项目展示,前端开发,后端开发">
+    <meta name="author" content="Ongwu">
+    
+    <!-- 搜索引擎爬取控制 -->
+    <meta name="robots" content="index,follow">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- 网站标识 -->
+    <link rel="canonical" href="https://ongwu.cn">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Open Graph 协议标签（社交媒体分享优化） -->
+    <meta property="og:title" content="Ongwu - 个人主页">
+    <meta property="og:description" content="热爱编程与设计的探索者，不断学习和创造有价值的作品。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ongwu.cn">
+    <meta property="og:image" content="https://ongwu.cn/og-image.jpg">
+    
+    <!-- Twitter 卡片 -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ongwu - 个人主页">
+    <meta name="twitter:description" content="热爱编程与设计的探索者，不断学习和创造有价值的作品。">
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', sans-serif;
+            color: #333;
+            background-color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+        }
+        
+        .main-content {
+            flex: 1;
+            width: 100%;
+        }
+        
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            text-align: center;
+            margin: 120px auto 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* 作者信息样式 */
+        .author-info {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            vertical-align: middle;
+        }
+        
+        .author-name {
+            font-size: 40px;
+            font-weight: 500;
+            color: #333;
+            margin: 0;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+        
+        .home-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            transition: transform 0.2s ease;
+            margin-bottom: 15px;
+            height: 66px;
+        }
+        
+        .home-link:hover {
+            transform: scale(1.02);
+        }
+        
+        .author-bio {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        /* 网站链接样式 */
+        .my-websites {
+            margin-bottom: 30px;
+        }
+        
+        .website-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .website-link {
+            padding: 8px 20px;
+            color: #333;
+            text-decoration: none;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .website-link:hover {
+            background-color: #f5f5f5;
+            border-color: #d0d0d0;
+        }
+        
+        /* 项目样式 */
+        .my-projects {
+            margin-top: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .project-list {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        
+        .project-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            transition: all 0.3s ease;
+            width: 260px;
+            min-height: 180px;
+            text-align: center;
+        }
+        
+        .project-icon {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+        
+        .project-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #333;
+            margin: 0 0 15px 0;
+        }
+        
+        .project-description {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.4;
+            text-align: left;
+            padding: 0 10px;
+        }
+        
+        .project-link {
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        /* 项目菜单按钮样式 - 修改为垂直居中布局 */
+        .project-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            align-items: center;
+        }
+        
+        .project-action-btn {
+            padding: 4px 8px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            width: 100px;
+            text-align: center;
+        }
+        
+        .project-action-btn.address {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        .project-action-btn.demo {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+        
+        .project-action-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 40px auto;
+            }
+            
+            .author-name {
+                font-size: 2.5rem;
+            }
+            
+            .website-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .website-link {
+                width: 180px;
+            }
+            
+            .project-list {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
+        /* 底部版权样式 - 自适应设计 */
+        .footer {
+            position: relative;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #888;
+            width: 100%;
+        }
+        
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        
+        .footer-divider {
+            color: #888;
+            margin: 0 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        /* 响应式设计 - 底部版权 */
+        @media (max-width: 768px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+        
+        .footer-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .footer-link {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #007bff;
+        }
+        
+        .footer-divider {
+            color: #dee2e6;
+        }
+        
+        /* 响应式设计 - 底部版权 */
+        @media (max-width: 768px) {
+            .footer {
+                padding: 20px 0;
+            }
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        /* 响应式设计 - 弹窗 */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                max-height: 85vh;
+            }
+        }
+        
+        /* 响应式设计 - 底部版权 */
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .footer-divider {
+                display: none;
+            }
+        }
+        
+
+    </style>
+</head>
+<body>
+    <!-- 主要内容区域 -->
+    <div class="main-content">
+    
+    <!-- 作者信息 -->
+    <div class="container">
+        <!-- 作者信息 -->
+        <div class="author-info">
+            <a href="/" class="home-link">
+                <img src="ongwu.jpg" alt="Ongwu的头像" class="author-avatar">
+                <h1 class="author-name">ONGWU</h1>
+            </a>
+            <p class="author-bio">欢迎来到我的主页，有问题留言~</p>
+        </div>
+        
+        <!-- 我的网站 -->
+        <div class="my-websites">
+            <div class="website-links">
+                <a href="https://ongwu.cn"  target="_blank" class="website-link">技术Look</a>
+                <a href="https://github.com/ongwu"  target="_blank" class="website-link">My Github</a>
+                <a href="#" id="openCommentModal" class="website-link">给我留言</a>
+            </div>
+        </div>
+        
+        <!-- 我的项目 -->
+        <div class="my-projects">
+            <h2 class="section-title">我的项目</h2>
+            <div class="project-list">
+                <div class="project-link">
+                    <div class="project-item">
+                        <div class="project-icon">📝</div>
+                        <h3 class="project-title">Ongwu笔记</h3>
+                        <div class="project-actions">
+                            <a href="https://github.com/ongwu/Ongwu-Note" target="_blank" class="project-action-btn address">项目地址</a>
+                            <a href="https://note.ongwu.cn" target="_blank" class="project-action-btn demo">访问Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-link">
+                    <div class="project-item">
+                        <div class="project-icon">🖥️</div>
+                        <h3 class="project-title">Ongwu Simple</h3>
+                        <div class="project-actions">
+                            <a href="https://github.com/ongwu/Ongwu-Simple" target="_blank" class="project-action-btn address">项目地址</a>
+                            <a href="https://windows.ongwu.cn/demo/Ongwu-Simple" target="_blank" class="project-action-btn demo">访问Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-link">
+                    <div class="project-item">
+                        <div class="project-icon">📟️</div>
+                        <h3 class="project-title">Ongwu Reveal</h3>
+                        <div class="project-actions">
+                            <a href="https://github.com/ongwu/Ongwu-Reveal" target="_blank" class="project-action-btn address">项目地址</a>
+                            <a href="https://windows.ongwu.cn/demo/Ongwu-Reveal" target="_blank" class="project-action-btn demo">访问Demo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-link">
+                    <div class="project-item">
+                        <div class="project-icon">🗃️</div>
+                        <h3 class="project-title">Ongwu Newmedia</h3>
+                        <div class="project-actions">
+                            <a href="https://github.com/ongwu/Ongwu-Newmedia" target="_blank" class="project-action-btn address">项目地址</a>
+                            <a href="https://ongwu.cn" target="_blank" class="project-action-btn demo">访问Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <!-- 主要内容区域结束 -->
+    </div>
+
+    <!-- 底部版权信息 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <span>© 2025 Ongwu个人主页</span>
+            <span class="footer-divider">|</span>
+            <span>已运行<span id="siteAge">0天0小时0分钟0秒</span></span>
+        </div>
+    </footer>
+    
+    <!-- 留言弹窗 -->
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>留言审核后通过~</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- Waline评论系统将在这里加载 -->
+                <div id="waline-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 网站运行时间计算器 -->
+    <script>
+        // 网站开始运行时间：2025年10月1日
+        const launchDate = new Date(2025, 9, 1); // 月份是从0开始的，所以10月是9
+        
+        function updateSiteAge() {
+            const now = new Date();
+            const diff = now - launchDate;
+            
+            const seconds = Math.floor(diff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            
+            const remainingHours = hours % 24;
+            const remainingMinutes = minutes % 60;
+            const remainingSeconds = seconds % 60;
+            
+            document.getElementById('siteAge').textContent = 
+                `${days}天${remainingHours}小时${remainingMinutes}分钟${remainingSeconds}秒`;
+        }
+        
+        // 初始更新
+        updateSiteAge();
+        
+        // 每秒更新一次
+        setInterval(updateSiteAge, 1000);
+    </script>
+    
+    <!-- 留言弹窗功能 -->
+    <script>
+        // 获取弹窗元素
+        const modal = document.getElementById('commentModal');
+        const openBtn = document.getElementById('openCommentModal');
+        const closeBtn = document.getElementsByClassName('close-modal')[0];
+        const walineContainer = document.getElementById('waline-container');
+        
+        // 打开弹窗
+        openBtn.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = 'block';
+            
+            // 清空容器内容
+            walineContainer.innerHTML = '';
+            
+            // 创建iframe指向https://comment.ongwu.cn/
+            const iframe = document.createElement('iframe');
+            iframe.src = 'https://comment.ongwu.cn/';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.style.minHeight = '700px';
+            iframe.title = '评论系统';
+            
+            // 添加iframe到容器
+            walineContainer.appendChild(iframe);
+        }
+        
+        // 关闭弹窗
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        // 点击弹窗外部区域关闭弹窗
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // 按ESC键关闭弹窗
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+    
+</body>
+</html>
