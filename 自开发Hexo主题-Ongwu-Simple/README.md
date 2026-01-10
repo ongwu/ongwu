@@ -9,7 +9,8 @@
 ### demo：https://ongwu.cn/demo/Ongwu-Simple
 
 ## 主题截图
-<img width="2096" height="3016" alt="ongwu github io_" src="https://github.com/user-attachments/assets/0a717733-5412-418c-bef8-21a98bcb8bc1" />
+<img width="594" height="483" alt="image" src="https://github.com/user-attachments/assets/b80e6981-1fda-44cd-8c29-947450967233" />
+
 
 
 ## 🌟 主题特色
