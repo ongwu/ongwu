@@ -13,7 +13,8 @@
 ### demo：https://ongwu.cn/demo/Ongwu-Reveal
 
 ### 主题截图：
-<img width="2240" height="2104" alt="localhost_4000_" src="https://github.com/user-attachments/assets/7d3562e1-4b62-405f-9375-6a9dd90b23e9" />
+<img width="2240" height="2104" alt="image" src="https://github.com/user-attachments/assets/64628109-eef4-4bbe-a245-b9bae32e59c0" />
+
 
 
 
