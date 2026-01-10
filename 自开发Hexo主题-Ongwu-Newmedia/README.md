@@ -1,7 +1,8 @@
 ## Ongwu Newmedia 主题说明
 
 ### 示例demo ： https://ongwu.cn
-<img width="1905" height="1123" alt="www ongwu cn_" src="https://github.com/user-attachments/assets/4852fc66-72c8-4ae6-860d-676305624214" />
+<img width="1905" height="1123" alt="image" src="https://github.com/user-attachments/assets/0f211066-ac64-4bb9-a225-044c3bd7eb0e" />
+
 
 
 ###  主题简介
